@@ -1,6 +1,8 @@
-FG.controller('MainCtrl', [
-  '$scope', 'stocks',
-  function($scope, stocks) {
-    $scope.stocks = stocks;
+FG.controller('MainCtrl',
+
+  ['$scope',
+
+  function($scope) {
   }
+
 ]);

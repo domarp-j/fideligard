@@ -7,30 +7,30 @@ FG.config(function($stateProvider, $urlRouterProvider) {
       url: '',
       views: {
         '@': {
-          templateUrl: 'app/components/main/main.html',
+          templateUrl: 'app/main/main.html',
           controller: 'MainCtrl'
         }
       },
-      resolve: {
-        stocks: function(stockService) {
-          return stockService.all();
-        }
-      }
+      // resolve: {
+      //   stocks: function(stockService) {
+      //     return stockService.all();
+      //   }
+      // }
     })
     .state('main.portfolio', {
       url: '/portfolio',
       views: {
         'content@main': {
-          templateUrl: 'app/components/portfolio/portfolio.html'
+          templateUrl: 'app/portfolio/portfolio.html',
+          controller: 'MainCtrl'
         }
       },
-      controller: 'MainCtrl'
     })
     .state('main.trade', {
       url: '/trade',
       views: {
         'content@main': {
-          templateUrl: 'app/components/trade/trade.html'
+          templateUrl: 'app/trade/trade.html'
         }
       }
     })
@@ -38,7 +38,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
       url: '/transactions',
       views: {
         'content@main': {
-          templateUrl: 'app/components/transactions/transactions.html'
+          templateUrl: 'app/transactions/transactions.html'
         }
       }
     })
