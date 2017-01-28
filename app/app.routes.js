@@ -8,7 +8,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
       views: {
         '@': {
           templateUrl: 'app/main/main.html',
-          controller: 'MainCtrl'
+          // controller: 'MainCtrl'
         }
       },
       // resolve: {
@@ -22,7 +22,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'content@main': {
           templateUrl: 'app/portfolio/portfolio.html',
-          controller: 'MainCtrl'
+          // controller: 'MainCtrl'
         }
       },
     })
