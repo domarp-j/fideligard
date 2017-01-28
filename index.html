@@ -3,13 +3,12 @@
 
   <head>
     <title>Fideligard</title>
-    <!-- Bootstrap -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- jQuery and Bootstrap JS -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="  crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
     <!-- AngularJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
     <!-- UI Router -->
@@ -19,7 +18,7 @@
   <body>
 
     <div class="container">
-    <!-- nav -->
+
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <ul class="nav navbar-nav navbar-right">
@@ -32,13 +31,15 @@
               </ul>
             </li>
           </ul>
-        </div><!-- /.container-fluid -->
+        </div>
       </nav>
 
       <div class="row">
         <div ui-view></div>
       </div>
+
     </div>
+
   </body>
 
   <!-- Module -->
@@ -46,8 +47,8 @@
   <!-- Routes -->
   <script src="/app/app.routes.js"></script>
   <!-- Services -->
-  <script src="/app/components/stock_service/stockService.js"></script>
+  <script src="/app/stocks/stock.service.js"></script>
   <!-- Controllers -->
-  <script src="/app/components/main/mainController.js"></script>
+  <script src="/app/main/main.controller.js"></script>
 
 </html>
