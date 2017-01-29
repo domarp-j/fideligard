@@ -8,7 +8,6 @@ FG.factory('apiService',
     // 'symbol' is the company symbol
     // 'startDate' and 'endDate' are date strings in format YYYY-MM-DD
     var getStockData = function(symbol, startDate, endDate) {
-      // console.log(_buildQueryUrl(symbol, startDate, endDate));
       return $http.get(_buildQueryUrl(symbol, startDate, endDate))
         .then(function(response) {
           return response.data;

@@ -17,8 +17,8 @@ FG.factory('dateService',
 
     // Get the difference in days between _startDate and _getDate
     // Note that there are 86400000 milliseconds in a day
-    var daysBetween = function() {
-      var millisecsBetween = (_endDate - _startDate);
+    var daysBetween = function(dateA, dateB) {
+      var millisecsBetween = (dateB - dateA);
       return millisecsBetween / 86400000;
     }
 

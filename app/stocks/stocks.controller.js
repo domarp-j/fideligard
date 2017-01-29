@@ -1,6 +1,6 @@
 FG.controller('StocksCtrl',
 
-  ['$scope',
+  ['$scope', 'apiService', 'stocksService,'
 
   function($scope) {
 

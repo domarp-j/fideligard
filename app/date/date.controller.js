@@ -10,14 +10,17 @@ FG.controller('DateCtrl',
     $scope.endDate = dateService.cleanDate(dateService.getEndDate());
 
     // Get days between startDate and endDate
-    $scope.daysBetween = dateService.daysBetween();
-
+    $scope.daysBetween = dateService.daysBetween(
+      dateService.getStartDate(),
+      dateService.getEndDate()
+    );
 
     // Get date from dayVal (set in view)
     $scope.$watch('dayVal', function() {
       $scope.currentDate = dateService.cleanDate(dateService.setCurrentDate($scope.dayVal));
-      $scope.temp = dateService.getCurrentDate(); 
+      $scope.temp = dateService.getCurrentDate();
     });
+    
   }
 
 ])
