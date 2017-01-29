@@ -1,9 +1,13 @@
-FG.directive('dateWidget', function() {
+FG.directive('dateWidget',
 
-  return {
-    templateUrl: 'app/date/date.view.html',
-    restrict: 'E',
-    scope: {}
+  function() {
+
+    return {
+      templateUrl: 'app/date/date.view.html',
+      restrict: 'E',
+      scope: {}
+    }
+
   }
 
-})
+)
