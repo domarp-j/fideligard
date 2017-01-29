@@ -5,6 +5,8 @@
     <title>Fideligard</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="  crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
@@ -23,14 +25,9 @@
 
         <div class="container-fluid">
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Navigate<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a ui-sref="main.portfolio">Portfolioioio</a></li>
-                <li><a ui-sref="main.trade">Trade Meh</a></li>
-                <li><a ui-sref="main.transactions">Transact It</a></li>
-              </ul>
-            </li>
+            <li><a ui-sref="main.portfolio">Portfolio</a></li>
+            <li><a ui-sref="main.trade">Trade</a></li>
+            <li><a ui-sref="main.transactions">Transactions</a></li>
           </ul>
         </div>
 
@@ -58,6 +55,7 @@
   <!-- Routes -->
   <script src="/app/app.routes.js"></script>
   <!-- Services -->
+  <script src="/app/date/date.service.js"></script>
   <script src="/app/stocks/api.service.js"></script>
   <script src="/app/stocks/stocks.service.js"></script>
   <!-- Controllers -->
