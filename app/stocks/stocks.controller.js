@@ -4,7 +4,19 @@ FG.controller('StocksCtrl',
 
   function($scope, apiService) {
 
-    console.log(apiService._buildQueryUrl(['AAPL', 'CDR', 'DIS', 'EA', 'GOOGL', 'TSLA', 'UBI', 'VIV'], '2016-09-01', '2016-12-31'));
+    // List of companies to get stock values
+    var companies = [
+      'AAPL',   // Apple
+      'CDR',    // CD Projekt
+      'DIS',    // Disney
+      'EA',     // EA
+      'GOOGL',  // Take a guess
+      'TSLA',   // Tesla
+      'UBI',    // Ubisoft
+      'VIV'     // Vivendi
+    ]
+
+    
 
   }
 
