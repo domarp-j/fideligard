@@ -1,4 +1,4 @@
-FG.controller('StocksCtrl',
+FG.controller('DateCtrl',
 
   ['$scope',
 

@@ -20,6 +20,7 @@
     <div class="container">
 
       <nav class="navbar navbar-default">
+
         <div class="container-fluid">
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -32,10 +33,20 @@
             </li>
           </ul>
         </div>
+
       </nav>
 
       <div class="row">
-        <div ui-view></div>
+
+        <div class="col-sm-4">
+          <div ui-view="stocks-index"></div>
+        </div>
+
+        <div class="col-sm-8">
+          <div ui-view="date-widget"></div>
+          <div ui-view="content"></div>
+        </div>
+
       </div>
 
     </div>
@@ -49,11 +60,11 @@
   <!-- Services -->
   <script src="/app/stocks/api.service.js"></script>
   <script src="/app/stocks/stocks.service.js"></script>
-  <!-- Directives -->
-  <script src="/app/date/date.directive.js"></script>
-  <script src="/app/stocks/stocks.directive.js"></script>
   <!-- Controllers -->
-  <script src="/app/main/main.controller.js"></script>
+  <script src="/app/date/date.controller.js"></script>
   <script src="/app/stocks/stocks.controller.js"></script>
+  <script src="/app/portfolio/portfolio.controller.js"></script>
+  <script src="/app/trade/trade.controller.js"></script>
+  <script src="/app/transactions/transactions.controller.js"></script>
 
 </html>

@@ -3,36 +3,43 @@ FG.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('');
 
   $stateProvider
-    .state('main', {
+    .state('fideligard', {
       url: '',
       views: {
-        '@': {
-          templateUrl: 'app/main/main.html',
-          controller: 'MainCtrl'
+        'date-widget@': {
+          templateUrl: 'app/date/date.view.html',
+          controller: 'DateCtrl'
+        },
+        'stocks-index@': {
+          templateUrl: 'app/stocks/stocks.view.html',
+          controller: 'StocksCtrl'
         }
       }
     })
-    .state('main.portfolio', {
+    .state('fideligard.portfolio', {
       url: '/portfolio',
       views: {
-        'content@main': {
-          templateUrl: 'app/portfolio/portfolio.html',
+        '@': {
+          templateUrl: 'app/portfolio/portfolio.view.html',
+          controller: 'PortfolioCtrl'
         }
       },
     })
-    .state('main.trade', {
+    .state('fideligard.trade', {
       url: '/trade',
       views: {
-        'content@main': {
-          templateUrl: 'app/trade/trade.html'
+        '@': {
+          templateUrl: 'app/trade/trade.view.html',
+          controller: 'TradeCtrl'
         }
       }
     })
-    .state('main.transactions', {
+    .state('fideligard.transactions', {
       url: '/transactions',
       views: {
-        'content@main': {
-          templateUrl: 'app/transactions/transactions.html'
+        '@': {
+          templateUrl: 'app/transactions/transactions.view.html',
+          controller: 'TransactionsCtrl'
         }
       }
     })
