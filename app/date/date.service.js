@@ -7,7 +7,7 @@ FG.factory('dateService',
     // Set date range as Date objects
     // Due to time zones, days actually show up as one day earlier than specified
     // setDate lines account for this offset
-    var _startDate = new Date('2016-06-01');
+    var _startDate = new Date('2016-09-01');
     _startDate.setDate(_startDate.getDate() + 1);
     var _endDate = new Date('2016-12-31');
     _endDate.setDate(_endDate.getDate() + 1);
@@ -22,7 +22,7 @@ FG.factory('dateService',
       return millisecsBetween / 86400000;
     }
 
-    // Return date as string in format 3/17/1992
+    // Return date as string in format MM/DD/YYYY
     var cleanDate = function(date) {
       return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
     }

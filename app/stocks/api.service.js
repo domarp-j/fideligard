@@ -6,8 +6,7 @@ FG.factory('apiService',
 
     // Send API request to get stock data from Yahoo API
     // 'symbol' is the company symbol
-    // 'startDate' and 'endDate' are date strings in format YYYY-MM-DD
-    var getStockData = function(symbol, startDate, endDate) {
+    var getStockData = function(symbolsArray, startDate, endDate) {
       return $http.get(_buildQueryUrl(symbol, startDate, endDate))
         .then(function(response) {
           return response.data;
@@ -15,23 +14,25 @@ FG.factory('apiService',
     }
 
     // Send 'Yahoo Query Language' query to Yahoo API for historical stock data
-    // 'symbol' is the company symbol
-    // 'startDate' and 'endDate' are date strings in format YYYY-MM-DD
-    var _buildQueryUrl = function(symbol, startDate, endDate) {
-      return
-        'http://query.yahooapis.com/v1/public/yql?q=' +
-        'select * from yahoo.finance.historicaldata' +
-        'where symbol = ' + symbol +
-        'and startDate = ' + startDate +
-        'and endDate = ' + endDate +
+    var _buildQueryUrl = function(symbolsArray, startDate, endDate) {
+      for (var i = 0; i < symbolsArray.length; i++) {
+        symbolsArray[i] = '"' + symbolsArray[i] + '"';
+      }
+      symbols = symbolsArray.join(',');
+      return 'https://query.yahooapis.com/v1/public/yql?q=' +
+        'select * from yahoo.finance.historicaldata ' +
+        'where symbol in (' + symbols + ') ' +
+        'and startDate = "' + startDate + '" ' +
+        'and endDate = "' + endDate + '"' +
         '&format=json' +
         '&diagnostics=true' +
         '&env=store://datatables.org/alltableswithkeys' +
-        '&callback='
+        '&callback=';
     }
 
     return {
-      getStockData: getStockData
+      getStockData: getStockData,
+      _buildQueryUrl: _buildQueryUrl // TODO: remove (temp)
     }
 
   }

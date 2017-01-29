@@ -3,7 +3,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('');
 
   $stateProvider
-    .state('fideligard', {
+    .state('app', {
       url: '',
       views: {
         'date-widget@': {
@@ -16,7 +16,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('fideligard.portfolio', {
+    .state('app.portfolio', {
       url: '/portfolio',
       views: {
         '@': {
@@ -25,7 +25,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
         }
       },
     })
-    .state('fideligard.trade', {
+    .state('app.trade', {
       url: '/trade',
       views: {
         '@': {
@@ -34,7 +34,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('fideligard.transactions', {
+    .state('app.transactions', {
       url: '/transactions',
       views: {
         '@': {
