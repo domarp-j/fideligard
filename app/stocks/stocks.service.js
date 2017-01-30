@@ -41,17 +41,40 @@ FG.factory('stocksService',
     //     ...
     //   }
     // }
-    var _cleanData = function(data) {
+    var _cleanData = function(apiData) {
       var newData = {};
-      for (var i = 0; i < data.length; i++) {
-        var date = data[i]["Date"];
-        var company = data[i]["Symbol"];
-        var value = data[i]["Close"];
+      for (var i = 0; i < apiData.length; i++) {
+        var date = apiData[i]["Date"];
+        var company = apiData[i]["Symbol"];
+        var value = apiData[i]["Close"];
         newData[date] = newData[date] || {};
         newData[date][company] = newData[date][company] || {};
         newData[date][company]["Price"] = parseInt(value);
       }
       return newData;
+    }
+
+    // A lot of dates are missing from stockData after the API call is made
+    // This method looks for dates that are missing and fills those values
+    //   blank dummy data.
+    // This method should only be called after cleanData is called!
+    var _fillInGaps = function() {
+      // Iterate from begin to end (both Date objects)
+      var begin = dateService.getEarlierDate(dateService.getStartDate(), 30);
+      var end = angular.copy(dateService.getEndDate());
+      for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
+        // Check if date does not exist in _stockData
+        // If not, fill it in with dummy data
+        var date = dateService.dateDashFormat(d)
+        if (!_stockData[date]) {
+          _stockData[date] = {};
+          for (var i = 0; i < _companies.length; i++) {
+            _stockData[date][_companies[i]] = {
+              "Price": 0
+            }
+          }
+        }
+      }
     }
 
     // Adds stock prices from 1d, 7d, and 30d ago to data
@@ -67,19 +90,37 @@ FG.factory('stocksService',
     //   },
     //   ...
     // }
-    // var _addHistoricalData = function() {
-    //   for (var date in _stockData)
-    // }
+    // This method should only be called after fillInGaps is called!
+    var _addHistoricalData = function() {
+      for (var date in _stockData) {
+        // Convert date from YYYY-MM-DD to Date object
+        var dateAsObj = new Date(Date.parse(date));
+        // Get past dates as Date objects
+        var oneDayBefore = dateService.getEarlierDate(dateAsObj, 1);
+        var sevenDaysBefore = dateService.getEarlierDate(dateAsObj, 7);
+        var thirtyDaysBefore = dateService.getEarlierDate(dateAsObj, 30);
+      }
+    }
+
+
 
     // For production only - get data using API
+    // Note that we actually want to set the start date as thirty days before
+    //   the startDate set in dateService
+    // That way, we can get historical data from 30 days ago for the very
+    //   first day
     var getStockData = function() {
+      var queryStartDate = dateService.getEarlierDate(dateService.getStartDate(), 30);
+      var queryEndDate = dateService.getEndDate();
+
       apiService.callAPI(
         _companies,
-        dateService.dateDashFormat(dateService.getStartDate()),
-        dateService.dateDashFormat(dateService.getEndDate())
+        dateService.dateDashFormat(queryStartDate),
+        dateService.dateDashFormat(queryEndDate)
       ).then(function(data) {
          angular.copy(_cleanData(data.query.results.quote), _stockData);
-        //  _addHistoricalData(_stockData);
+         _fillInGaps();
+        //  _addHistoricalData();
          return _stockData;
        })
     }
@@ -89,6 +130,7 @@ FG.factory('stocksService',
       return $http.get('/data/stocks.json')
         .then(function(response) {
           angular.copy(_cleanData(response.data.query.results.quote), _stockData);
+          _fillInGaps();
           // _addHistoricalData();
           return _stockData;
         })

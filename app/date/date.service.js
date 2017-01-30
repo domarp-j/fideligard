@@ -12,8 +12,15 @@ FG.factory('dateService',
     var _endDate = new Date('2016-12-31');
     _endDate.setDate(_endDate.getDate() + 1);
 
+    // Get the date from (daysBefore) days ago
+    var getEarlierDate = function(date, daysBefore) {
+      var earlierDate = angular.copy(date);
+      earlierDate.setDate(earlierDate.getDate() - daysBefore);
+      return earlierDate;
+    }
+
     // Initialize currentDate
-    var _currentDate = angular.copy(_startDate);
+    var _currentDate;
 
     // Get the difference in days between _startDate and _getDate
     // Note that there are 86400000 milliseconds in a day
@@ -62,6 +69,7 @@ FG.factory('dateService',
       daysBetween: daysBetween,
       setCurrentDate: setCurrentDate,
       getCurrentDate: getCurrentDate,
+      getEarlierDate: getEarlierDate
     }
 
   }

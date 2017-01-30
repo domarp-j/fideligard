@@ -4,11 +4,12 @@ FG.controller('StocksCtrl',
 
   function($scope, stocksService, dateService) {
 
-    $scope.stockData = {};
+    $scope.stockData = stocksService.getStockDataTemp(); // TODO: change to getStockData
 
-    // $scope.$watch('dateService.getCurrentDate()', function() {
-    //   console.log('!');
-    // });
+    $scope.currentDate = dateService.getCurrentDate();
+
+    $scope.$watch('currentDate', function() {
+    });
 
   }
 
