@@ -4,13 +4,16 @@ FG.factory('dateService',
 
   function() {
 
-    // Set date range as Date objects
+    // Set date range
     // Due to time zones, days actually show up as one day earlier than specified
     // setDate lines account for this offset
     var _startDate = new Date('2016-09-01');
     _startDate.setDate(_startDate.getDate() + 1);
     var _endDate = new Date('2016-12-31');
     _endDate.setDate(_endDate.getDate() + 1);
+
+    // Initialize currentDate
+    var _currentDate = angular.copy(_startDate);
 
     // Get the difference in days between _startDate and _getDate
     // Note that there are 86400000 milliseconds in a day
@@ -39,13 +42,16 @@ FG.factory('dateService',
       return _endDate;
     }
 
-    // Given dayValue from the date widget, determine the current date
-    // Return new date and reset currentDate
+    // Given dayValue from the date widget, set currentDate
     var setCurrentDate = function(dayVal) {
       dayVal = dayVal || 0; // in case dayVal is undefined
-      var currentDate = angular.copy(_startDate);
-      currentDate.setDate(_startDate.getDate() + dayVal);
-      return currentDate;
+      _currentDate = angular.copy(_startDate);
+      _currentDate.setDate(_startDate.getDate() + dayVal);
+    }
+
+    // Get currentDate
+    var getCurrentDate = function() {
+      return _currentDate;
     }
 
     return {
@@ -54,7 +60,8 @@ FG.factory('dateService',
       dateSlashFormat: dateSlashFormat,
       dateDashFormat: dateDashFormat,
       daysBetween: daysBetween,
-      setCurrentDate: setCurrentDate
+      setCurrentDate: setCurrentDate,
+      getCurrentDate: getCurrentDate
     }
 
   }

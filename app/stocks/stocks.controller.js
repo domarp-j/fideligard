@@ -6,10 +6,6 @@ FG.controller('StocksCtrl',
 
     $scope.stockData = {};
 
-    stocksService.getStockDataTemp() // TODO: change to getStockData() for production
-      .then(function(stockData) {
-      })
-
   }
 
 ])
