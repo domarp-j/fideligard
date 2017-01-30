@@ -5,11 +5,12 @@ FG.controller('StocksCtrl',
   function($scope, stocksService, dateService) {
 
     var date = dateService.getDate();
-
-    $scope.stockData = stocksService.getStockDataTemp();
+    var allStockData = stocksService.getStockData();
 
     $scope.$watch('date.currentDateWatched', function() {
-      $scope.currentDate = date.currentDate;
+      $scope.date = date;
+      $scope.stockData = allStockData[date.currentDateWatched];
+      console.log($scope.stockData);
     });
 
   }

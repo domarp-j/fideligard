@@ -10,6 +10,12 @@
     </tr>
   </thead>
   <tbody>
-    {{ currentDate }}
+    <tr ng-repeat="(company, data) in stockData">
+      <td>{{ company }}</td>
+      <td>{{ data["Price"] | number : 2 }}</td>
+      <td>{{ data["1d"] | number : 2 }}</td>
+      <td>{{ data["7d"] | number : 2 }}</td>
+      <td>{{ data["30d"]  | number : 2 }}</td>
+    </tr>
   </tbody>
 </table>
