@@ -9,9 +9,6 @@ FG.factory('stocksService',
     //   THIRTY DAYS BEFORE the startDate up to endDate
     var _stockData = {};
 
-    // Initialize date object
-    var date = dateService.getDate();
-
     // List of companies to get stock values
     var _companies = [
       'AAPL',   // Apple
@@ -53,7 +50,7 @@ FG.factory('stocksService',
         var value = apiData[i]["Close"];
         newData[date] = newData[date] || {};
         newData[date][company] = newData[date][company] || {};
-        newData[date][company]["Price"] = parseInt(value);
+        newData[date][company]["Price"] = parseFloat(value);
       }
       return newData;
     }
@@ -64,19 +61,20 @@ FG.factory('stocksService',
     // This method should only be called after cleanData is called!
     var _fillInGaps = function() {
       // Iterate from begin to end (both Date objects)
-      var begin = dateService.getEarlierDate(date.startDate, 30);
-      var end = angular.copy(date.endDate);
+      var begin = dateService.getEarlierDate(dateService.getDate().startDate, 30);
+      var end = angular.copy(dateService.getDate().endDate);
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
-        // Check if date does not exist in _stockData
-        // If not, fill it in with dummy data
-        var date = dateService.dateDashFormat(d)
+        var date = dateService.dateDashFormat(d);
+        var dayBefore = dateService.dateDashFormat(dateService.getEarlierDate(d, 1));
+        // Add any missing dates
         if (!_stockData[date]) {
           _stockData[date] = {};
-          for (var i = 0; i < _companies.length; i++) {
-            _stockData[date][_companies[i]] = {
-              "Price": 0
-            }
-          }
+        }
+        // Add any missing companies
+        for (var i = 0; i < _companies.length; i++) {
+          _stockData[date][_companies[i]] = _stockData[date][_companies[i]] || {
+            "Price": _stockData[dayBefore][_companies[i]]["Price"]
+          };
         }
       }
     }
@@ -100,7 +98,7 @@ FG.factory('stocksService',
         // Convert date from YYYY-MM-DD to Date object
         var dateAsObj = new Date(Date.parse(date));
         // Continue if date is part of thirty days before startDate
-        if (dateAsObj < date.startDate) {
+        if (dateAsObj < dateService.getDate().startDate) {
           continue;
         }
         // Get past dates as Date objects
@@ -113,7 +111,12 @@ FG.factory('stocksService',
         thirtyDaysBefore = dateService.dateDashFormat(thirtyDaysBefore);
         // Finally, populate companies in _stockData with 1d, 7d, 30d
         for (var company in _stockData[date]) {
-
+          _stockData[date][company]["1d"] =
+            _stockData[date][company]["Price"] - _stockData[oneDayBefore][company]["Price"];
+          _stockData[date][company]["7d"] =
+            _stockData[date][company]["Price"] - _stockData[sevenDaysBefore][company]["Price"];
+          _stockData[date][company]["30d"] =
+            _stockData[date][company]["Price"] - _stockData[thirtyDaysBefore][company]["Price"];
         }
       }
     }
@@ -134,7 +137,7 @@ FG.factory('stocksService',
       ).then(function(data) {
          angular.copy(_cleanData(data.query.results.quote), _stockData);
          _fillInGaps();
-        //  _addHistoricalData();
+         _addHistoricalData();
          return _stockData;
        })
     }
@@ -145,7 +148,8 @@ FG.factory('stocksService',
         .then(function(response) {
           angular.copy(_cleanData(response.data.query.results.quote), _stockData);
           _fillInGaps();
-          // _addHistoricalData();
+          _addHistoricalData();
+          console.log(_stockData);
           return _stockData;
         })
     }
