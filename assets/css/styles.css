@@ -2,3 +2,8 @@
 #end-date-label {
   float: right
 }
+
+/* Stocks Table */
+#stocks-index th {
+  text-align: center;
+}

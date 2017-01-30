@@ -36,7 +36,7 @@ FG.factory('stocksService',
     // {
     //   "2016-12-30": {
     //     "AAPL": {
-    //       "Value": 115.82 // "Close"
+    //       "Price": 115.82 // "Close"
     //     },
     //     ...
     //   }
@@ -49,10 +49,27 @@ FG.factory('stocksService',
         var value = data[i]["Close"];
         newData[date] = newData[date] || {};
         newData[date][company] = newData[date][company] || {};
-        newData[date][company]["Value"] = parseInt(value);
+        newData[date][company]["Price"] = parseInt(value);
       }
       return newData;
     }
+
+    // Adds stock prices from 1d, 7d, and 30d ago to data
+    // Input should be the same as the output in cleanData
+    // Output should be that same object with 1d, 7d, 30d data added
+    // {
+    //   "2016-12-30": {
+    //     "AAPL": {
+    //       "Value": 115.82, // "Close"
+    //       "1d": ???,
+    //       "7d": ???,
+    //       "30d": ???
+    //   },
+    //   ...
+    // }
+    // var _addHistoricalData = function() {
+    //   for (var date in _stockData)
+    // }
 
     // For production only - get data using API
     var getStockData = function() {
@@ -62,6 +79,7 @@ FG.factory('stocksService',
         dateService.dateDashFormat(dateService.getEndDate())
       ).then(function(data) {
          angular.copy(_cleanData(data.query.results.quote), _stockData);
+        //  _addHistoricalData(_stockData);
          return _stockData;
        })
     }
@@ -71,6 +89,7 @@ FG.factory('stocksService',
       return $http.get('/data/stocks.json')
         .then(function(response) {
           angular.copy(_cleanData(response.data.query.results.quote), _stockData);
+          // _addHistoricalData();
           return _stockData;
         })
     }

@@ -7,7 +7,7 @@ FG.factory('dateService',
     // Set date range
     // Due to time zones, days actually show up as one day earlier than specified
     // setDate lines account for this offset
-    var _startDate = new Date('2016-09-01');
+    var _startDate = new Date('2016-10-01');
     _startDate.setDate(_startDate.getDate() + 1);
     var _endDate = new Date('2016-12-31');
     _endDate.setDate(_endDate.getDate() + 1);
@@ -61,7 +61,7 @@ FG.factory('dateService',
       dateDashFormat: dateDashFormat,
       daysBetween: daysBetween,
       setCurrentDate: setCurrentDate,
-      getCurrentDate: getCurrentDate
+      getCurrentDate: getCurrentDate,
     }
 
   }

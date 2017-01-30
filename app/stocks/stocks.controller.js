@@ -6,6 +6,10 @@ FG.controller('StocksCtrl',
 
     $scope.stockData = {};
 
+    // $scope.$watch('dateService.getCurrentDate()', function() {
+    //   console.log('!');
+    // });
+
   }
 
 ])
