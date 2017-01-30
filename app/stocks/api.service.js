@@ -5,8 +5,8 @@ FG.factory('apiService',
   function($http) {
 
     // Send API request to get stock data from Yahoo API
-    // 'symbol' is the company symbol
-    var getStockData = function(companies, startDate, endDate) {
+    // Returns the raw data from the API call
+    var callAPI = function(companies, startDate, endDate) {
       return $http.get(_buildQueryUrl(companies, startDate, endDate))
         .then(function(response) {
           return response.data;
@@ -30,18 +30,8 @@ FG.factory('apiService',
         '&callback=';
     }
 
-    // If data is stored in /data/stocks.json, this method gets that data
-    var getStockDataStored = function() {
-      return $http.get('/data/stocks.json')
-        .then(function(response) {
-          return response.data;
-        })
-    }
-
     return {
-      getStockData: getStockData,
-      getStockDataStored: getStockDataStored,
-      _buildQueryUrl: _buildQueryUrl
+      callAPI: callAPI
     }
 
   }

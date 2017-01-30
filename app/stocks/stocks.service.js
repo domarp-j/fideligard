@@ -1,24 +1,50 @@
 FG.factory('stocksService',
 
-  ['apiService', 'dateService',
+  ['$http', 'apiService', 'dateService',
 
-  function(apiService, dateService) {
+  function($http, apiService, dateService) {
 
-    // Stock data parameters
-    // var _companies = ['AAPL'];
-    // var _startDate = dateService.getStartDate();
-    // var _endDate = dateService.getEndDate();
+    // Initialize stockData
+    // This will eventually be an array of data from the API call
+    var _stockData = [];
 
-    // Stock data container
-    // var _stockData = {};
+    // List of companies to get stock values
+    var _companies = [
+      'AAPL',   // Apple
+      'CDR',    // CD Projekt
+      'DIS',    // Disney
+      'EA',     // EA
+      'GOOGL',  // Take a guess
+      'TSLA',   // Tesla
+      'UBI',    // Ubisoft
+      'VIV'     // Vivendi
+    ];
 
-    // Call API for each company
-    // for (var i = 0; i < _companies.length; i++) {
-    //   apiService.getStockData(_companies[i], _startDate, _endDate)
-    //     .then(function(data) {
-    //       _stockData[_companies[i]] = data;
-    //     })
-    // }
+    // Get data using API
+    var getStockData = function() {
+      apiService.callAPI(
+        _companies,
+        dateService.dateDashFormat(dateService.getStartDate()),
+        dateService.dateDashFormat(dateService.getEndDate())
+      ).then(function(data) {
+        angular.copy(data.query.results.quote, _stockData);
+        return _stockData;
+      })
+    }
+
+    // For development only - get data stored in /data/stocks.json
+    var getStockDataTemp = function() {
+      return $http.get('/data/stocks.json')
+        .then(function(response) {
+          angular.copy(response.data.query.results.quote, _stockData);
+          return _stockData; 
+        })
+    }
+
+    return {
+      getStockData: getStockData,
+      getStockDataTemp: getStockDataTemp
+    }
 
   }
 

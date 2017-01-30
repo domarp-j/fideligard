@@ -1,22 +1,15 @@
 FG.controller('StocksCtrl',
 
-  ['$scope', 'apiService',
+  ['$scope', 'stocksService',
 
-  function($scope, apiService) {
+  function($scope, stocksService) {
 
-    // List of companies to get stock values
-    var companies = [
-      'AAPL',   // Apple
-      'CDR',    // CD Projekt
-      'DIS',    // Disney
-      'EA',     // EA
-      'GOOGL',  // Take a guess
-      'TSLA',   // Tesla
-      'UBI',    // Ubisoft
-      'VIV'     // Vivendi
-    ]
+    $scope.stockData = [];
 
-    
+    stocksService.getStockDataTemp() // TODO: change to getStockData() for production
+      .then(function(stockData) {
+        $scope.stockData = stockData;
+      })
 
   }
 

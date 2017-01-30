@@ -23,8 +23,13 @@ FG.factory('dateService',
     }
 
     // Return date as string in format MM/DD/YYYY
-    var cleanDate = function(date) {
+    var dateSlashFormat = function(date) {
       return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+    }
+
+    // Return date as string in format YYYY-MM-DD
+    var dateDashFormat = function(date) {
+      return date.toISOString().slice(0,10);
     }
 
     // Return startDate
@@ -55,7 +60,8 @@ FG.factory('dateService',
     return {
       getStartDate: getStartDate,
       getEndDate: getEndDate,
-      cleanDate: cleanDate,
+      dateSlashFormat: dateSlashFormat,
+      dateDashFormat: dateDashFormat,
       daysBetween: daysBetween,
       setCurrentDate: setCurrentDate,
       getCurrentDate: getCurrentDate

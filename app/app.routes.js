@@ -45,3 +45,8 @@ FG.config(function($stateProvider, $urlRouterProvider) {
     })
 
 })
+
+// Debugging
+FG.run(function($rootScope){
+  $rootScope.$on("$stateChangeError", console.log.bind(console));
+});

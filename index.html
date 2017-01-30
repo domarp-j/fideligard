@@ -15,6 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
     <!-- UI Router -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+    <!-- Lodash -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
   </head>
 
   <body>
@@ -24,6 +26,9 @@
       <nav class="navbar navbar-default">
 
         <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Fideligard</a>
+          </div>
           <ul class="nav navbar-nav navbar-right">
             <li><a ui-sref="app.portfolio">Portfolio</a></li>
             <li><a ui-sref="app.trade">Trade</a></li>
@@ -51,7 +56,7 @@
   </body>
 
   <!-- Module -->
-  <script src="/app/app.module.js"></script>
+  <script src="/app/app.setup.js"></script>
   <!-- Routes -->
   <script src="/app/app.routes.js"></script>
   <!-- Services -->
