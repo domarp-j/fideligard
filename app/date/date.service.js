@@ -12,9 +12,6 @@ FG.factory('dateService',
     var _endDate = new Date('2016-12-31');
     _endDate.setDate(_endDate.getDate() + 1);
 
-    // Initialize currentDate
-    var _currentDate;
-
     // Get the difference in days between _startDate and _getDate
     // Note that there are 86400000 milliseconds in a day
     var daysBetween = function(dateA, dateB) {
@@ -22,7 +19,7 @@ FG.factory('dateService',
       return millisecsBetween / 86400000;
     }
 
-    // Return date as string in format MM/DD/YYYY
+    // Return date as string in format MM/DD/YYYY // TODO: use the date filter instead!
     var dateSlashFormat = function(date) {
       return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
     }
@@ -46,15 +43,9 @@ FG.factory('dateService',
     // Return new date and reset currentDate
     var setCurrentDate = function(dayVal) {
       dayVal = dayVal || 0; // in case dayVal is undefined
-      var tempDate = angular.copy(_startDate);
-      tempDate.setDate(_startDate.getDate() + dayVal);
-      _currentDate = tempDate;
-      return tempDate;
-    }
-
-    // Get currentDate
-    var getCurrentDate = function() {
-      return _currentDate;
+      var currentDate = angular.copy(_startDate);
+      currentDate.setDate(_startDate.getDate() + dayVal);
+      return currentDate;
     }
 
     return {
@@ -63,8 +54,7 @@ FG.factory('dateService',
       dateSlashFormat: dateSlashFormat,
       dateDashFormat: dateDashFormat,
       daysBetween: daysBetween,
-      setCurrentDate: setCurrentDate,
-      getCurrentDate: getCurrentDate
+      setCurrentDate: setCurrentDate
     }
 
   }

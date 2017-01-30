@@ -18,7 +18,6 @@ FG.controller('DateCtrl',
     // Get date from dayVal (set in view)
     $scope.$watch('dayVal', function() {
       $scope.currentDate = dateService.dateSlashFormat(dateService.setCurrentDate($scope.dayVal));
-      $scope.temp = dateService.getCurrentDate();
     });
 
   }

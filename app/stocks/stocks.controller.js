@@ -1,14 +1,13 @@
 FG.controller('StocksCtrl',
 
-  ['$scope', 'stocksService',
+  ['$scope', 'stocksService', 'dateService',
 
-  function($scope, stocksService) {
+  function($scope, stocksService, dateService) {
 
-    $scope.stockData = [];
+    $scope.stockData = {};
 
     stocksService.getStockDataTemp() // TODO: change to getStockData() for production
       .then(function(stockData) {
-        $scope.stockData = stockData;
       })
 
   }
