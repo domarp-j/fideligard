@@ -4,6 +4,7 @@
 }
 
 /* Stocks Table */
-#stocks-index th {
+#stocks-index th,
+#stocks-index td {
   text-align: center;
 }

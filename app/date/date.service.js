@@ -39,11 +39,12 @@ FG.factory('dateService',
       var begin = angular.copy(_date.startDate);
       var end = getEarlierDate(angular.copy(_date.endDate), -1); // TODO: cheap fix
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
-        dateCollection.push(dateDashFormat(d));
+        dateCollection.push(dateDashFormat(getEarlierDate(d,1)));
       }
       return dateCollection;
     }
     var _dateCollection = _populateDateCollection();
+    console.log(_dateCollection);
 
     // Get date object when needed
     var getDate = function() {
@@ -65,7 +66,7 @@ FG.factory('dateService',
       // Otherwise, it will be servered from the $digest loop
       _date.currentDate.setFullYear(newDate.getFullYear());
       _date.currentDate.setMonth(newDate.getMonth());
-      _date.currentDate.setDate(newDate.getDate());
+      _date.currentDate.setDate(newDate.getDate() + 1); // TODO: cheap fix
       _date.currentDateWatched = _dateCollection[dayIndex];
     }
 

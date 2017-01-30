@@ -126,7 +126,7 @@ FG.factory('stocksService',
     //   the startDate set in dateService
     // That way, we can get historical data from 30 days ago for the very
     //   first day
-    var _populateStockData = function() {
+    var populateStockData = function() {
       var queryStartDate = dateService.getEarlierDate(date.startDate, 30);
       var queryEndDate = date.endDate;
 
@@ -137,30 +137,34 @@ FG.factory('stocksService',
       ).then(function(data) {
          angular.copy(_cleanData(data.query.results.quote), _stockData);
          _fillInGaps();
-         _addHistoricalData();
+         _addHistoricalData()
+         return _stockData;
        })
     }
 
     // For development only - get data stored in /data/stocks.json
-    var _populateStockDataTemp = function() {
+    var populateStockDataTemp = function() {
       return $http.get('/data/stocks.json')
         .then(function(response) {
           angular.copy(_cleanData(response.data.query.results.quote), _stockData);
           _fillInGaps();
           _addHistoricalData();
+          return _stockData;
         })
     }
 
     // Get stock data
     var getStockData = function() {
       if (_.isEmpty(_stockData)) {
-        _populateStockDataTemp(); // TODO: temporary
+        populateStockDataTemp(); // TODO: temporary
       }
       return _stockData;
     }
 
     return {
-      getStockData: getStockData
+      getStockData: getStockData,
+      populateStockData: populateStockData,
+      populateStockDataTemp: populateStockDataTemp
     }
 
   }
