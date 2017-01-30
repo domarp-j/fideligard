@@ -5,7 +5,8 @@ FG.factory('stocksService',
   function($http, apiService, dateService) {
 
     // Initialize stockData
-    // This will eventually be an array of data from the API call
+    // Eventually, this will have cleaned data from the API that goes from
+    //   THIRTY DAYS BEFORE the startDate up to endDate
     var _stockData = {};
 
     // List of companies to get stock values
@@ -56,7 +57,7 @@ FG.factory('stocksService',
 
     // A lot of dates are missing from stockData after the API call is made
     // This method looks for dates that are missing and fills those values
-    //   blank dummy data.
+    //   with blank dummy data.
     // This method should only be called after cleanData is called!
     var _fillInGaps = function() {
       // Iterate from begin to end (both Date objects)
@@ -77,8 +78,8 @@ FG.factory('stocksService',
       }
     }
 
-    // Adds stock prices from 1d, 7d, and 30d ago to data
-    // Input should be the same as the output in cleanData
+    // Adds difference in stock prices from 1d, 7d, and 30d ago
+    // Input should be the same as the output in fillInGaps
     // Output should be that same object with 1d, 7d, 30d data added
     // {
     //   "2016-12-30": {
@@ -95,14 +96,32 @@ FG.factory('stocksService',
       for (var date in _stockData) {
         // Convert date from YYYY-MM-DD to Date object
         var dateAsObj = new Date(Date.parse(date));
+        // Continue if date is part of thirty days before startDate
+        if (dateAsObj < dateService.getStartDate()) {
+          continue;
+        }
         // Get past dates as Date objects
         var oneDayBefore = dateService.getEarlierDate(dateAsObj, 1);
         var sevenDaysBefore = dateService.getEarlierDate(dateAsObj, 7);
         var thirtyDaysBefore = dateService.getEarlierDate(dateAsObj, 30);
+        // Convert dates into dash format
+        oneDayBefore = dateService.dateDashFormat(oneDayBefore);
+        sevenDaysBefore = dateService.dateDashFormat(sevenDaysBefore);
+        thirtyDaysBefore = dateService.dateDashFormat(thirtyDaysBefore);
+        // Finally, populate companies in _stockData with 1d, 7d, 30d
+        for (var company in _stockData[date]) {
+          if (_stockData[oneDayBefore][company]) {
+            _stockData[date][company]["1d"] = _stockData[date][company]["Price"] - _stockData[oneDayBefore][company]["Price"];
+          }
+          if (_stockData[sevenDaysBefore][company]) {
+            _stockData[date][company]["7d"] = _stockData[date][company]["Price"] - _stockData[sevenDaysBefore][company]["Price"];
+          }
+          if (_stockData[thirtyDaysBefore][company]) {
+            _stockData[date][company]["30d"] = _stockData[date][company]["Price"] - _stockData[thirtyDaysBefore][company]["Price"];
+          }
+        }
       }
     }
-
-
 
     // For production only - get data using API
     // Note that we actually want to set the start date as thirty days before
@@ -120,7 +139,7 @@ FG.factory('stocksService',
       ).then(function(data) {
          angular.copy(_cleanData(data.query.results.quote), _stockData);
          _fillInGaps();
-        //  _addHistoricalData();
+         _addHistoricalData();
          return _stockData;
        })
     }
@@ -131,7 +150,8 @@ FG.factory('stocksService',
         .then(function(response) {
           angular.copy(_cleanData(response.data.query.results.quote), _stockData);
           _fillInGaps();
-          // _addHistoricalData();
+          _addHistoricalData();
+          console.log(_stockData);
           return _stockData;
         })
     }
