@@ -9,6 +9,9 @@ FG.factory('stocksService',
     //   THIRTY DAYS BEFORE the startDate up to endDate
     var _stockData = {};
 
+    // Initialize date object
+    var date = dateService.getDate();
+
     // List of companies to get stock values
     var _companies = [
       'AAPL',   // Apple
@@ -61,8 +64,8 @@ FG.factory('stocksService',
     // This method should only be called after cleanData is called!
     var _fillInGaps = function() {
       // Iterate from begin to end (both Date objects)
-      var begin = dateService.getEarlierDate(dateService.getStartDate(), 30);
-      var end = angular.copy(dateService.getEndDate());
+      var begin = dateService.getEarlierDate(date.startDate, 30);
+      var end = angular.copy(date.endDate);
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
         // Check if date does not exist in _stockData
         // If not, fill it in with dummy data
@@ -97,7 +100,7 @@ FG.factory('stocksService',
         // Convert date from YYYY-MM-DD to Date object
         var dateAsObj = new Date(Date.parse(date));
         // Continue if date is part of thirty days before startDate
-        if (dateAsObj < dateService.getStartDate()) {
+        if (dateAsObj < date.startDate) {
           continue;
         }
         // Get past dates as Date objects
@@ -110,15 +113,7 @@ FG.factory('stocksService',
         thirtyDaysBefore = dateService.dateDashFormat(thirtyDaysBefore);
         // Finally, populate companies in _stockData with 1d, 7d, 30d
         for (var company in _stockData[date]) {
-          if (_stockData[oneDayBefore][company]) {
-            _stockData[date][company]["1d"] = _stockData[date][company]["Price"] - _stockData[oneDayBefore][company]["Price"];
-          }
-          if (_stockData[sevenDaysBefore][company]) {
-            _stockData[date][company]["7d"] = _stockData[date][company]["Price"] - _stockData[sevenDaysBefore][company]["Price"];
-          }
-          if (_stockData[thirtyDaysBefore][company]) {
-            _stockData[date][company]["30d"] = _stockData[date][company]["Price"] - _stockData[thirtyDaysBefore][company]["Price"];
-          }
+
         }
       }
     }
@@ -129,8 +124,8 @@ FG.factory('stocksService',
     // That way, we can get historical data from 30 days ago for the very
     //   first day
     var getStockData = function() {
-      var queryStartDate = dateService.getEarlierDate(dateService.getStartDate(), 30);
-      var queryEndDate = dateService.getEndDate();
+      var queryStartDate = dateService.getEarlierDate(date.startDate, 30);
+      var queryEndDate = date.endDate;
 
       apiService.callAPI(
         _companies,
@@ -139,7 +134,7 @@ FG.factory('stocksService',
       ).then(function(data) {
          angular.copy(_cleanData(data.query.results.quote), _stockData);
          _fillInGaps();
-         _addHistoricalData();
+        //  _addHistoricalData();
          return _stockData;
        })
     }
@@ -150,8 +145,7 @@ FG.factory('stocksService',
         .then(function(response) {
           angular.copy(_cleanData(response.data.query.results.quote), _stockData);
           _fillInGaps();
-          _addHistoricalData();
-          console.log(_stockData);
+          // _addHistoricalData();
           return _stockData;
         })
     }

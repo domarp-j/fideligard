@@ -4,21 +4,23 @@ FG.controller('DateCtrl',
 
   function($scope, dateService) {
 
+    var date = dateService.getDate();
+
     // Get clean, presentable versions of startDate and endDate
     // startDate and endDate are in dateService
-    $scope.startDate = dateService.dateSlashFormat(dateService.getStartDate());
-    $scope.endDate = dateService.dateSlashFormat(dateService.getEndDate());
+    $scope.startDate = date.startDate;
+    $scope.endDate = date.endDate;
 
     // Get days between startDate and endDate
     $scope.daysBetween = dateService.daysBetween(
-      dateService.getStartDate(),
-      dateService.getEndDate()
+      date.startDate,
+      date.endDate
     );
 
     // Get date from dayVal (set in view)
     $scope.$watch('dayVal', function() {
       dateService.setCurrentDate($scope.dayVal);
-      $scope.currentDate = dateService.dateSlashFormat(dateService.getCurrentDate());
+      $scope.currentDate = date.currentDate;
     });
 
   }
