@@ -98,7 +98,7 @@ FG.factory('stocksService',
         // Convert date from YYYY-MM-DD to Date object
         var dateAsObj = new Date(Date.parse(date));
         // Continue if date is part of thirty days before startDate
-        if (dateAsObj < dateService.getDate().startDate) {
+        if (dateAsObj < dateService.getEarlierDate(dateService.getDate().startDate, 1)) {
           continue;
         }
         // Get past dates as Date objects
@@ -149,7 +149,6 @@ FG.factory('stocksService',
           angular.copy(_cleanData(response.data.query.results.quote), _stockData);
           _fillInGaps();
           _addHistoricalData();
-          console.log(_stockData);
           return _stockData;
         })
     }

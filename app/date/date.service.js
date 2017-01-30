@@ -16,9 +16,9 @@ FG.factory('dateService',
     _date.startDate.setDate(_date.startDate.getDate() + 1);
     _date.endDate.setDate(_date.endDate.getDate() + 1);
 
-    // Get date object when needed
-    var getDate = function() {
-      return _date;
+    // Return date as string in format YYYY-MM-DD
+    var dateDashFormat = function(date) {
+      return date.toISOString().slice(0,10);
     }
 
     // Get the date from (daysBefore) days ago
@@ -28,16 +28,29 @@ FG.factory('dateService',
       return earlierDate;
     }
 
+    // Get a collection of dates as an array
+    // Each date is in format YYYY-MM-D
+    var _populateDateCollection = function() {
+      var dateCollection = [];
+      var begin = angular.copy(getEarlierDate(_date.startDate, 1));
+      var end = angular.copy(_date.endDate);
+      for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
+        dateCollection.push(dateDashFormat(d));
+      }
+      return dateCollection;
+    }
+    var _dateCollection = _populateDateCollection();
+
+    // Get date object when needed
+    var getDate = function() {
+      return _date;
+    }
+
     // Get the difference in days between _startDate and _getDate
     // Note that there are 86400000 milliseconds in a day
     var daysBetween = function(dateA, dateB) {
       var millisecsBetween = (dateB - dateA);
       return millisecsBetween / 86400000;
-    }
-
-    // Return date as string in format YYYY-MM-DD
-    var dateDashFormat = function(date) {
-      return date.toISOString().slice(0,10);
     }
 
     // Given dayValue from the date widget, set currentDate
