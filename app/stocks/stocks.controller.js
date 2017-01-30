@@ -8,8 +8,8 @@ FG.controller('StocksCtrl',
 
     $scope.stockData = stocksService.getStockDataTemp();
 
-    $scope.$watch('date.currentDate', function() {
-      // TODO: why is this broken???
+    $scope.$watch('date.currentDateWatched', function() {
+      $scope.currentDate = date.currentDate;
     });
 
   }

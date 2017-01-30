@@ -8,7 +8,8 @@ FG.factory('dateService',
     var _date = {
       startDate: new Date('2016-10-01'),
       endDate: new Date('2016-12-31'),
-      currentDate: new Date('2016-10-01')
+      currentDate: new Date('2016-10-01'),
+      currentDateWatched: '2016-10-01'
     }
 
     // Due to time zones, days actually show up as one day earlier than specified
@@ -65,6 +66,7 @@ FG.factory('dateService',
       _date.currentDate.setFullYear(newDate.getFullYear());
       _date.currentDate.setMonth(newDate.getMonth());
       _date.currentDate.setDate(newDate.getDate());
+      _date.currentDateWatched = _dateCollection[dayIndex];
     }
 
     return {
