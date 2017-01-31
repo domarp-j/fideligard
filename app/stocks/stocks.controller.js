@@ -13,7 +13,7 @@ FG.controller('StocksCtrl',
 
         $scope.$watch('date.currentDateWatched', function() {
           $scope.date = date;
-          $scope.stockData = allStockData[date.currentDateWatched];
+          $scope.stockData = stocksService.arrayifyData(allStockData[date.currentDateWatched]);
         });
 
       });

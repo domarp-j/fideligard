@@ -44,7 +44,6 @@ FG.factory('dateService',
       return dateCollection;
     }
     var _dateCollection = _populateDateCollection();
-    console.log(_dateCollection);
 
     // Get date object when needed
     var getDate = function() {

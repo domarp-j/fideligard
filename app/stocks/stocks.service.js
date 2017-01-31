@@ -37,7 +37,7 @@ FG.factory('stocksService',
     // {
     //   "2016-12-30": {
     //     "AAPL": {
-    //       "Price": 115.82 // "Close"
+    //       "price": 115.82 // "Close"
     //     },
     //     ...
     //   }
@@ -50,7 +50,7 @@ FG.factory('stocksService',
         var value = apiData[i]["Close"];
         newData[date] = newData[date] || {};
         newData[date][company] = newData[date][company] || {};
-        newData[date][company]["Price"] = parseFloat(value);
+        newData[date][company]["price"] = parseFloat(value);
       }
       return newData;
     }
@@ -73,7 +73,7 @@ FG.factory('stocksService',
         // Add any missing companies
         for (var i = 0; i < _companies.length; i++) {
           _stockData[date][_companies[i]] = _stockData[date][_companies[i]] || {
-            "Price": _stockData[dayBefore][_companies[i]]["Price"]
+            "price": _stockData[dayBefore][_companies[i]]["price"]
           };
         }
       }
@@ -85,12 +85,12 @@ FG.factory('stocksService',
     // {
     //   "2016-12-30": {
     //     "AAPL": {
-    //       "Value": 115.82, // "Close"
+    //       "value": 115.82, // "Close"
     //       "1d": ???,
     //       "7d": ???,
     //       "30d": ???
     //   },
-    //   ...
+    // ...
     // }
     // This method should only be called after fillInGaps is called!
     var _addHistoricalData = function() {
@@ -112,11 +112,11 @@ FG.factory('stocksService',
         // Finally, populate companies in _stockData with 1d, 7d, 30d
         for (var company in _stockData[date]) {
           _stockData[date][company]["1d"] =
-            _stockData[date][company]["Price"] - _stockData[oneDayBefore][company]["Price"];
+            _stockData[date][company]["price"] - _stockData[oneDayBefore][company]["price"];
           _stockData[date][company]["7d"] =
-            _stockData[date][company]["Price"] - _stockData[sevenDaysBefore][company]["Price"];
+            _stockData[date][company]["price"] - _stockData[sevenDaysBefore][company]["price"];
           _stockData[date][company]["30d"] =
-            _stockData[date][company]["Price"] - _stockData[thirtyDaysBefore][company]["Price"];
+            _stockData[date][company]["price"] - _stockData[thirtyDaysBefore][company]["price"];
         }
       }
     }
@@ -161,10 +161,46 @@ FG.factory('stocksService',
       return _stockData;
     }
 
+    // Arrayify stock data for use in view
+    // Input is an object formatted in the following manner:
+    // {
+    //   "AAPL": {
+    //     "price": 115.82, // "Close"
+    //     "1d": ???,
+    //     "7d": ???,
+    //     "30d": ???
+    //   },
+    //   ...
+    // }
+    // Output is an array of objects
+    // [
+    //   {
+    //     "company": "AAPL",
+    //     "price": 115.82,
+    //     "1d": ???,
+    //     "7d": ???,
+    //     "30d": ???
+    //   }
+    // ]
+    var arrayifyData = function(data) {
+      var dataArray = [];
+      for (var company in data) {
+        dataArray.push({
+          "company": company,
+          "price": data[company]["price"],
+          "1d": data[company]["1d"],
+          "7d": data[company]["7d"],
+          "30d": data[company]["30d"]
+        })
+      }
+      return dataArray;
+    }
+
     return {
       getStockData: getStockData,
       populateStockData: populateStockData,
-      populateStockDataTemp: populateStockDataTemp
+      populateStockDataTemp: populateStockDataTemp,
+      arrayifyData: arrayifyData
     }
 
   }
