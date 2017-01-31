@@ -18,7 +18,7 @@
         </select>
 
         <label for="quantity">Quantity</label>
-        <input type="text" name="quantity" class="form-control" ng-model="formData.quantity">
+        <input type="number" name="quantity" class="form-control" ng-model="formData.quantity">
 
         <label for="date">Date</label>
         <input type="date" name="date" class="form-control" ng-model="formData.date" required>
@@ -29,7 +29,7 @@
         <label for="cost">Cost</label>
         <div class="cost">{{ formData.cost | currency }}</div>
 
-        <input type="submit" class="btn btn-success" value="Place Order!">
+        <input type="submit" class="btn btn-success" value="Place Order!" ng-disabled="tradeForm.$invalid">
 
       </form>
 

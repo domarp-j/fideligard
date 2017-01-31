@@ -1,2 +1,27 @@
 <section id="transacts">
+
+  <h1>Transactions</h1>
+
+  <table id="transacts-table" class="table">
+    <thead>
+      <tr>
+        <!--TODO: add sorting-->
+        <th>Date</th>
+        <th>Symbol</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="transact in transactions">
+        <td>{{ transact.date | date }}</td>
+        <td>{{ transact.company }}</td>
+        <td>{{ transact.buySell | uppercase }}</td>
+        <td>{{ transact.quantity }}</td>
+        <td>{{ transact.price | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+
 </section>

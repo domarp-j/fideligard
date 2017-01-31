@@ -8,3 +8,9 @@
 #stocks-index td {
   text-align: center;
 }
+
+/* Transactions Table */
+#transacts th,
+#transacts td {
+  text-align: center;
+}
