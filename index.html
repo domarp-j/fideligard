@@ -60,12 +60,12 @@
   <!-- Routes -->
   <script src="/app/app.routes.js"></script>
   <!-- Services -->
-  <script src="/app/date/date.service.js"></script>
+  <script src="/app/date/date.service.js"></script><!--always first-->
   <script src="/app/stocks/api.service.js"></script>
   <script src="/app/stocks/stocks.service.js"></script>
-  <script src="/app/portfolio/portfolio.service.js"></script>
   <script src="/app/transacts/transacts.service.js"></script>
   <script src="/app/trade/trade.service.js"></script>
+  <script src="/app/portfolio/portfolio.service.js"></script><!--always last-->
   <!-- Controllers -->
   <script src="/app/date/date.controller.js"></script>
   <script src="/app/stocks/stocks.controller.js"></script>

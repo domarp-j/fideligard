@@ -1,16 +1,9 @@
+/* Universal Styles */
+th, td {
+  text-align: center;
+}
+
 /* Date Widget */
 #end-date-label {
   float: right
-}
-
-/* Stocks Table */
-#stocks-index th,
-#stocks-index td {
-  text-align: center;
-}
-
-/* Transactions Table */
-#transacts th,
-#transacts td {
-  text-align: center;
 }

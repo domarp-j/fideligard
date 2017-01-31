@@ -5,11 +5,11 @@ FG.factory('transactsService',
   function() {
 
     // Collect all transactions
-    // Each object in transacts has the following scheme:
+    // Each object in transacts.list has the following scheme:
     // {
-    //   date: date (as Date object)
-    //   company: company name,
-    //   buySell: buy or sell,
+    //   date: Date object
+    //   company: string,
+    //   buySell: string,
     //   quantity: integer,
     //   price: float
     // }
@@ -27,7 +27,6 @@ FG.factory('transactsService',
     var addTransact = function(transactParams) {
       _transacts.list.push(angular.copy(transactParams)); // TODO: copy necessary?
       _transacts.changeTracker++;
-      console.log(_transacts.changeTracker);
     }
 
     return {

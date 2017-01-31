@@ -5,6 +5,7 @@ FG.controller('TransactsCtrl',
   function($scope, transactsService) {
 
     // TODO: seed transactions (add method to transactsService)
+    // TODO: add filter & sorting
 
     var transacts = transactsService.getTransacts();
     $scope.transactions = transacts.list;

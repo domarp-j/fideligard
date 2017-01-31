@@ -1,3 +1,58 @@
 <section id="portfolio">
 
+  <h1>Portfolio</h1>
+
+  <table id="portfolio-stats-table" class="table">
+    <thead>
+      <tr>
+        <th>Cost Basis</th>
+        <th>Current Value</th>
+        <th>Profit/Loss</th>
+        <th>1d</th>
+        <th>7d</th>
+        <th>30d</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>???</td>
+        <td>???</td>
+        <td>???</td>
+        <td>???</td>
+        <td>???</td>
+        <td>???</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table id="portfolio-stocks-table" class="table">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Quantity</th>
+        <th>Cost Basis</th>
+        <th>Current Value</th>
+        <th>Profit/Loss</th>
+        <th>Current Price</th>
+        <th>1d</th>
+        <th>7d</th>
+        <th>30d</th>
+        <th>Trade?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in portfolioItems">
+        <td>{{ item.symbol }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.costBasis | currency }}</td>
+        <td>{{ item.currentValue | currency }}</td>
+        <td>{{ item.profitLoss | currency }}</td>
+        <td>{{ item.currentPrice | currency }}</td>
+        <td>{{ item["1d"] | currency }}</td>
+        <td>{{ item["7d"] | currency }}</td>
+        <td>{{ item["30d"] | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+
 </section>

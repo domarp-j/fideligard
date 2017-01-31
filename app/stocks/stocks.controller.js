@@ -1,8 +1,8 @@
 FG.controller('StocksCtrl',
 
-  ['$scope', 'stocksService', 'dateService', 'tradeService',
+  ['$scope', 'stocksService', 'dateService', 'tradeService', 'portfolioService',
 
-  function($scope, stocksService, dateService, tradeService) {
+  function($scope, stocksService, dateService, tradeService, portfolioService) {
 
     var date = dateService.getDate();
     $scope.date = date;

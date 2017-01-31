@@ -4,6 +4,9 @@ FG.factory('dateService',
 
   function() {
 
+    // Note - other services depend on this service
+    // It should always be loaded first in index.html
+
     // Set date object
     var _date = {
       startDate: new Date('2016-10-01'),
