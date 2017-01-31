@@ -1,9 +1,16 @@
 FG.controller('TradeCtrl',
 
-  ['$scope',
+  ['$scope', 'tradeService',
 
-  function($scope) {
-    $scope.temp = "TEMP";
+  function($scope, tradeService) {
+
+    var trade = tradeService.getTrade();
+    $scope.trade = trade;
+
+    $scope.$watch('trade.changeTracker', function() {
+      
+    });
+
   }
 
 ])

@@ -9,7 +9,7 @@ FG.factory('dateService',
       startDate: new Date('2016-10-01'),
       endDate: new Date('2016-12-31'),
       currentDate: new Date('2016-10-01'),
-      currentDateWatched: '2016-10-01'
+      changeTracker: '2016-10-01'
     }
 
     // Due to time zones, days actually show up as one day earlier than specified
@@ -20,8 +20,8 @@ FG.factory('dateService',
     }
     _fixDateOffset();
 
-    // Return date as string in format YYYY-MM-DD
-    var dateDashFormat = function(date) {
+    // Given date object, return date as string in format YYYY-MM-DD
+    var dateToString = function(date) {
       return date.toISOString().slice(0,10);
     }
 
@@ -39,7 +39,7 @@ FG.factory('dateService',
       var begin = angular.copy(_date.startDate);
       var end = getEarlierDate(angular.copy(_date.endDate), -1); // TODO: cheap fix
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
-        dateCollection.push(dateDashFormat(getEarlierDate(d,1)));
+        dateCollection.push(dateToString(getEarlierDate(d,1)));
       }
       return dateCollection;
     }
@@ -66,12 +66,12 @@ FG.factory('dateService',
       _date.currentDate.setFullYear(newDate.getFullYear());
       _date.currentDate.setMonth(newDate.getMonth());
       _date.currentDate.setDate(newDate.getDate() + 1); // TODO: cheap fix
-      _date.currentDateWatched = _dateCollection[dayIndex];
+      _date.changeTracker = _dateCollection[dayIndex];
     }
 
     return {
       getDate: getDate,
-      dateDashFormat: dateDashFormat,
+      dateToString: dateToString,
       daysBetween: daysBetween,
       setCurrentDate: setCurrentDate,
       getEarlierDate: getEarlierDate

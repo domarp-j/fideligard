@@ -1,8 +1,8 @@
 FG.controller('StocksCtrl',
 
-  ['$scope', 'stocksService', 'dateService',
+  ['$scope', 'stocksService', 'dateService', 'tradeService',
 
-  function($scope, stocksService, dateService) {
+  function($scope, stocksService, dateService, tradeService) {
 
     var date = dateService.getDate();
     $scope.date = date;
@@ -11,12 +11,17 @@ FG.controller('StocksCtrl',
       .then(function() {
         var allStockData = stocksService.getStockData();
 
-        $scope.$watch('date.currentDateWatched', function() {
+        $scope.$watch('date.changeTracker', function() {
           $scope.date = date;
-          $scope.stockData = stocksService.arrayifyData(allStockData[date.currentDateWatched]);
+          $scope.stockData = stocksService.arrayifyData(allStockData[date.changeTracker]);
         });
 
       });
+
+    $scope.populateTradeForm = function($event) {
+      var stockTableRow = angular.element($event.target).parent().parent();
+      tradeService.updateTrade(stockTableRow, date.changeTracker);
+    }
 
   }
 

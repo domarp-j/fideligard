@@ -18,11 +18,12 @@
     <tbody>
       <tr ng-repeat="data in stockData | orderBy:'company' | filter:symbol">
         <!--TODO: add clickable sort-->
-        <td>{{ data.company }}</td>
-        <td>{{ data.price | currency : $ : 2 }}</td>
-        <td>{{ data["1d"] | currency : $ : 2 }}</td>
-        <td>{{ data["7d"] | currency : $ : 2 }}</td>
-        <td>{{ data["30d"]  | currency : $ : 2 }}</td>
+        <td class="company">{{ data.company }}</td>
+        <td class="price">{{ data.price | currency : $ : 2 }}</td>
+        <td class="one-day">{{ data["1d"] | currency : $ : 2 }}</td>
+        <td class="seven-day">{{ data["7d"] | currency : $ : 2 }}</td>
+        <td class="thirty-day">{{ data["30d"]  | currency : $ : 2 }}</td>
+        <td><a class="trade-link" ui-sref="app.trade" ng-click="populateTradeForm($event)">Trade</a></td>
       </tr>
     </tbody>
   </table>
