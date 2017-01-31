@@ -1,8 +1,8 @@
 FG.controller('TradeCtrl',
 
-  ['$scope', 'tradeService', 'dateService', 'stocksService',
+  ['$scope', 'tradeService', 'dateService', 'stocksService', 'transactsService',
 
-  function($scope, tradeService, dateService, stocksService) {
+  function($scope, tradeService, dateService, stocksService, transactsService) {
 
     var trade = tradeService.getTrade();
     $scope.formData = trade;
@@ -17,7 +17,7 @@ FG.controller('TradeCtrl',
     });
 
     $scope.$watch('date.changeTracker', function() {
-      if ($scope.formData.company !== 'N/A') {
+      if ($scope.formData.company !== 'N/A' && $scope.formData.buySell !== 'sell') {
         tradeService.updateTrade(date.changeTracker, {
           company: $scope.formData.company,
           buySell: "buy", // TODO: correct?
@@ -26,6 +26,14 @@ FG.controller('TradeCtrl',
         });
       }
     });
+
+    $scope.processTradeRequest = function(formIsValid) {
+      if (formIsValid) {
+        // transactsService.addTransact({
+        //
+        // })
+      }
+    }
 
   }
 

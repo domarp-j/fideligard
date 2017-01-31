@@ -38,8 +38,8 @@ FG.config(function($stateProvider, $urlRouterProvider) {
       url: '/transactions',
       views: {
         'main-section@': {
-          templateUrl: 'app/transactions/transactions.view.html',
-          controller: 'TransactionsCtrl'
+          templateUrl: 'app/transacts/transacts.view.html',
+          controller: 'TransactsCtrl'
         }
       }
     })

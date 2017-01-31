@@ -6,10 +6,10 @@
 
     <div class="col-xs-12 col-md-6">
 
-      <form name="tradeForm" class="form-group">
+      <form name="tradeForm" class="form-group" ng-submit="processTradeRequest(tradeForm.$valid)" novalidate>
 
         <label for="symbol">Symbol</label>
-        <input type="text" name="symbol" class="form-control" ng-model="formData.company">
+        <input type="text" name="symbol" class="form-control" ng-model="formData.company" required>
 
         <label for="buy-sell">Buy/Sell</label>
         <select name="buy-sell" class="form-control" ng-model="formData.buySell">
@@ -18,10 +18,10 @@
         </select>
 
         <label for="quantity">Quantity</label>
-        <input type="text" name="quanitity" class="form-control" ng-model="formData.quantity">
+        <input type="text" name="quantity" class="form-control" ng-model="formData.quantity">
 
         <label for="date">Date</label>
-        <input type="date" name="date" class="form-control" ng-model="formData.date">
+        <input type="date" name="date" class="form-control" ng-model="formData.date" required>
 
         <label for="price">Price</label>
         <div class="price">{{ formData.price | currency }}</div>

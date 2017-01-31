@@ -1,4 +1,4 @@
-FG.controller('TransactionsCtrl',
+FG.controller('TransactsCtrl',
 
   ['$scope',
 
