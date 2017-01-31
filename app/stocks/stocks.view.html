@@ -1,25 +1,30 @@
-<form class="form-group">
-  <input type="text" class="form-control" ng-model="symbol">
-</form>
+<section id="stocks-index">
 
-<table id="stocks-index" class="table">
-  <thead>
-    <tr>
-      <th>Symbol</th>
-      <th>Price</th>
-      <th>1d</th>
-      <th>7d</th>
-      <th>30d</th>
-      <th>Trade?</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="data in stockData | orderBy:'company' | filter:symbol">
-      <td>{{ data.company }}</td>
-      <td>{{ data.price | currency : $ : 2 }}</td>
-      <td>{{ data["1d"] | currency : $ : 2 }}</td>
-      <td>{{ data["7d"] | currency : $ : 2 }}</td>
-      <td>{{ data["30d"]  | currency : $ : 2 }}</td>
-    </tr>
-  </tbody>
-</table>
+  <form class="form-group">
+    <input type="text" class="form-control" ng-model="symbol">
+  </form>
+
+  <table id="stocks-index" class="table">
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>1d</th>
+        <th>7d</th>
+        <th>30d</th>
+        <th>Trade?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="data in stockData | orderBy:'company' | filter:symbol">
+        <!--TODO: add clickable sort-->
+        <td>{{ data.company }}</td>
+        <td>{{ data.price | currency : $ : 2 }}</td>
+        <td>{{ data["1d"] | currency : $ : 2 }}</td>
+        <td>{{ data["7d"] | currency : $ : 2 }}</td>
+        <td>{{ data["30d"]  | currency : $ : 2 }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>

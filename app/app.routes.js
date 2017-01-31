@@ -19,7 +19,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
     .state('app.portfolio', {
       url: '/portfolio',
       views: {
-        '@': {
+        'main-section@': {
           templateUrl: 'app/portfolio/portfolio.view.html',
           controller: 'PortfolioCtrl'
         }
@@ -28,7 +28,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
     .state('app.trade', {
       url: '/trade',
       views: {
-        '@': {
+        'main-section@': {
           templateUrl: 'app/trade/trade.view.html',
           controller: 'TradeCtrl'
         }
@@ -37,7 +37,7 @@ FG.config(function($stateProvider, $urlRouterProvider) {
     .state('app.transactions', {
       url: '/transactions',
       views: {
-        '@': {
+        'main-section@': {
           templateUrl: 'app/transactions/transactions.view.html',
           controller: 'TransactionsCtrl'
         }
