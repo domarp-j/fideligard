@@ -6,28 +6,28 @@
 
     <div class="col-xs-12 col-md-6">
 
-      <form class="form-group">
+      <form name="tradeForm" class="form-group">
 
         <label for="symbol">Symbol</label>
-        <input type="text" name="symbol" class="form-control">
+        <input type="text" name="symbol" class="form-control" ng-model="formData.company">
 
         <label for="buy-sell">Buy/Sell</label>
-        <select name="buy-sell" class="form-control">
+        <select name="buy-sell" class="form-control" ng-model="formData.buySell">
           <option value="buy">BUY</option>
           <option value="sell">SELL</option>
         </select>
 
         <label for="quantity">Quantity</label>
-        <input type="text" name="quanitity" class="form-control">
+        <input type="text" name="quanitity" class="form-control" ng-model="formData.quantity">
 
         <label for="date">Date</label>
-        <input type="date" name="date" class="form-control">
+        <input type="date" name="date" class="form-control" ng-model="formData.date">
 
         <label for="price">Price</label>
-        <div class="price">N/A</div>
+        <div class="price">{{ formData.price | currency }}</div>
 
         <label for="cost">Cost</label>
-        <div class="cost">N/A</div>
+        <div class="cost">{{ formData.cost | currency }}</div>
 
         <input type="submit" class="btn btn-success" value="Place Order!">
 

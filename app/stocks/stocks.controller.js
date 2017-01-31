@@ -20,7 +20,12 @@ FG.controller('StocksCtrl',
 
     $scope.populateTradeForm = function($event) {
       var stockTableRow = angular.element($event.target).parent().parent();
-      tradeService.updateTrade(stockTableRow, date.changeTracker);
+      var company = stockTableRow.children('.company')[0].innerHTML;
+      var price = stockTableRow.children('.price')[0].innerHTML.substr(1);
+      tradeService.updateTrade(date.changeTracker, {
+        company: company,
+        price: price
+      });
     }
 
   }

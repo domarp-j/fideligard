@@ -1,4 +1,4 @@
-FG.factory('userService',
+FG.factory('portfolioService',
 
   [
 
