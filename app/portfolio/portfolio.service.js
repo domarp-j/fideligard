@@ -48,7 +48,7 @@ FG.factory('portfolioService',
       angular.copy([], _portfolio.list);
 
       // Get stock data
-      var stockData = stocksService.getStockData();
+      var stockData = stocksService.getStockData(); // TODO: bad idea? 
 
       // Get date as string, for indexing
       var dateString = dateService.dateToString(dateService.getEarlierDate(date, 1));
