@@ -51,6 +51,7 @@
         <td>{{ item["1d"] | currency }}</td>
         <td>{{ item["7d"] | currency }}</td>
         <td>{{ item["30d"] | currency }}</td>
+        <td><a class="trade-link" ui-sref="app.trade" ng-click="makeTrade($event)">Trade</a>
       </tr>
     </tbody>
   </table>

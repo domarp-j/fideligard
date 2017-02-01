@@ -17,6 +17,10 @@ FG.controller('PortfolioCtrl',
       $scope.portfolioItems = portfolioService.getPortfolio().list;
     });
 
+    $scope.makeTrade = function($event) {
+      // TODO: left off here
+    }
+
   }
 
 ])

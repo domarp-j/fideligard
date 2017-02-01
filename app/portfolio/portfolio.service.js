@@ -48,7 +48,7 @@ FG.factory('portfolioService',
       angular.copy([], _portfolio.list);
 
       // Get stock data
-      var stockData = stocksService.getStockData(); // TODO: bad idea? 
+      var stockData = stocksService.getStockData(); // TODO: bad idea?
 
       // Get date as string, for indexing
       var dateString = dateService.dateToString(dateService.getEarlierDate(date, 1));
@@ -62,7 +62,7 @@ FG.factory('portfolioService',
         // Some useful parameters, stored as variables
         var symbol = transactions[i].company;
         var quantity = transactions[i].quantity;
-        var costBasis = transactions[i].price;
+        var costBasis = transactions[i].price * quantity;
         var currentPrice = stockData[dateString][symbol]["price"];
         var currentValue = currentPrice * quantity;
         var profitLoss = currentValue - costBasis;
