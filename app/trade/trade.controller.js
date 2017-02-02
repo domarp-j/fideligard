@@ -57,18 +57,17 @@ FG.controller('TradeCtrl',
       $scope.formData.cost = $scope.formData.price * newQuantity;
     });
 
-    // When a trade form is submitted, add to transactions
-    $scope.processTradeRequest = function(formIsValid) {
-      if (formIsValid) {
-        transactsService.addTransact({
-          date: $scope.formData.date,
-          company: $scope.formData.company,
-          buySell: $scope.formData.buySell,
-          quantity: $scope.formData.quantity,
-          price: $scope.formData.price
-        })
-        $state.go("app.portfolio");
-      }
+    // Handle a trade request
+    // Uses validations if trader is selling 
+    $scope.processTradeRequest = function() {
+      transactsService.addTransact({
+        date: $scope.formData.date,
+        company: $scope.formData.company,
+        buySell: $scope.formData.buySell,
+        quantity: $scope.formData.quantity,
+        price: $scope.formData.price
+      })
+      $state.go("app.portfolio");
     }
 
   }
