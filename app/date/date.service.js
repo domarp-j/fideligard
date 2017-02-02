@@ -72,12 +72,18 @@ FG.factory('dateService',
       _date.changeTracker = _dateCollection[dayIndex];
     }
 
+    // Check if a date is between startDate and endDate
+    var checkDate = function(date) {
+      return date >= _date.startDate && date <= _date.endDate; 
+    }
+
     return {
       getDate: getDate,
       dateToString: dateToString,
       daysBetween: daysBetween,
       setCurrentDate: setCurrentDate,
-      getEarlierDate: getEarlierDate
+      getEarlierDate: getEarlierDate,
+      checkDate: checkDate
     }
 
   }

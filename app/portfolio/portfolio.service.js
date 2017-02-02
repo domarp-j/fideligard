@@ -1,8 +1,8 @@
 FG.factory('portfolioService',
 
-  ['stocksService', 'dateService',
+  ['_', 'stocksService', 'dateService',
 
-  function(stocksService, dateService) {
+  function(_, stocksService, dateService) {
 
     // Note - this service depends on many other services
     // It should always be loaded last in index.html
@@ -83,9 +83,22 @@ FG.factory('portfolioService',
 
     }
 
+    // Check if a sale is possible based on portfolio data
+    var checkSell = function(company, quantity) {
+      for (var i = 0; i < _portfolio.list.length; i++) {
+        var ownsCompanyStock = _portfolio.list[i]["symbol"] === company;
+        var ownsCorrectQuantity = _portfolio.list[i]["quantity"];
+        if (ownsCompanyStock && ownsCorrectQuantity) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     return {
       getPortfolio: getPortfolio,
-      updatePortfolio: updatePortfolio
+      updatePortfolio: updatePortfolio,
+      checkSell: checkSell
     }
 
   }

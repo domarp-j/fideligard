@@ -21,12 +21,27 @@ FG.controller('TradeCtrl',
     var cash = portfolioService.getPortfolio().cash;
     $scope.cash = cash;
 
+    // Check if trade is valid
+    $scope.validTrade = function() {
+      var validDate = dateService.checkDate($scope.formData.date);
+      var validCompany = stocksService.checkCompany($scope.formData.company);
+      var validSell =
+        $scope.formData.buySell === 'buy' ? true : portfolioService.checkSell(
+          $scope.formData.company,
+          $scope.formData.quantity
+        );
+      return validDate && validCompany && validSell;
+    }
+
+    // Set order status
+    $scope.orderStatus = $scope.validTrade();
+
     // Watch for changes in trade form & act accordingly
     $scope.$watch('trade.changeTracker', function() {
       $scope.formData = trade;
     });
 
-    // Watch for changes in date & act accordingly
+    // Watch for changes in date slide & act accordingly
     $scope.$watch('date.changeTracker', function() {
       if ($scope.formData.company !== 'N/A' && $scope.formData.buySell !== 'sell') {
         tradeService.updateTrade(date.changeTracker, {
@@ -36,6 +51,12 @@ FG.controller('TradeCtrl',
           price: stocks[date.changeTracker][$scope.formData.company]["price"]
         });
       }
+    });
+
+    // Watch for changes in symbol entry & act accordingly
+    $scope.$watch('formData.company', function() {
+      $scope.orderStatus = $scope.validTrade();
+      // TODO: change price with symbol change
     });
 
     // Populate trade form after 'trade' is selected in stocks index or portfolio
@@ -49,25 +70,32 @@ FG.controller('TradeCtrl',
           buySell: $stateParams.buySell,
           quantity: $stateParams.quantity
         });
+        $scope.orderStatus = $scope.validTrade();
       }
     );
 
     // Watch for changes in quanitity and update total cost
     $scope.$watch('formData.quantity', function(newQuantity) {
       $scope.formData.cost = $scope.formData.price * newQuantity;
+      $scope.orderStatus = $scope.validTrade();
     });
 
     // Handle a trade request
-    // Uses validations if trader is selling 
-    $scope.processTradeRequest = function() {
-      transactsService.addTransact({
-        date: $scope.formData.date,
-        company: $scope.formData.company,
-        buySell: $scope.formData.buySell,
-        quantity: $scope.formData.quantity,
-        price: $scope.formData.price
-      })
-      $state.go("app.portfolio");
+    $scope.processTradeRequest = function(formIsValid) {
+
+      if ($scope.validTrade() && formIsValid) {
+
+        transactsService.addTransact({
+          date: $scope.formData.date,
+          company: $scope.formData.company,
+          buySell: $scope.formData.buySell,
+          quantity: $scope.formData.quantity,
+          price: $scope.formData.price
+        })
+        $state.go("app.portfolio");
+
+      }
+
     }
 
   }

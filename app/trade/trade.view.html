@@ -18,10 +18,10 @@
         </select>
 
         <label for="quantity">Quantity</label>
-        <input type="number" name="quantity" class="form-control" ng-model="formData.quantity">
+        <input type="number" name="quantity" class="form-control" ng-model="formData.quantity" ng-min="1">
 
         <label for="date">Date</label>
-        <input type="date" name="date" class="form-control" ng-model="formData.date" required>
+        <input type="date" name="date" class="form-control" ng-model="formData.date" required ng-min="date.startDate" ng-max="date.endDate">
 
         <label for="price">Price</label>
         <div class="price">{{ formData.price | currency }}</div>
@@ -41,7 +41,7 @@
       <div class="cash-available">{{ cash | currency }}</div>
 
       <label>Order Status:</label>
-      <div class="order-status">N/A</div>
+      <div class="order-status">{{ orderStatus ? "VALID" : "INVALID" }}</div>
 
     </div>
 

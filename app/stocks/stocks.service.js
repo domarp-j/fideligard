@@ -193,11 +193,18 @@ FG.factory('stocksService',
       return dataArray;
     }
 
+    // Check if company is in list of companies
+    // Requires that all symbols in companies array are capitalized
+    var checkCompany = function(company) {
+      return _.includes(_companies, _.upperCase(company));
+    }
+
     return {
       getStockData: getStockData,
       populateStockData: populateStockData,
       populateStockDataTemp: populateStockDataTemp,
-      arrayifyData: arrayifyData
+      arrayifyData: arrayifyData,
+      checkCompany: checkCompany
     }
 
   }
