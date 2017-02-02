@@ -7,11 +7,6 @@ FG.factory('portfolioService',
     // Note - this service depends on many other services
     // It should always be loaded last in index.html
 
-    // TODO: read cost basis explanation - https://www.youtube.com/watch?v=S4ZXHeT8loE
-
-    // Starting cash
-    var _cash = 1000;
-
     // Collect all portfolio items
     // Each object in portfolio.list has the following scheme:
     // {
@@ -26,6 +21,7 @@ FG.factory('portfolioService',
     //   30d: float
     // }
     var _portfolio = {
+      cash: 1000,
       list: [],
       changeTracker: 0
     }
@@ -48,7 +44,7 @@ FG.factory('portfolioService',
       angular.copy([], _portfolio.list);
 
       // Get stock data
-      var stockData = stocksService.getStockData(); // TODO: bad idea?
+      var stockData = stocksService.getStockData(); // TODO: call every time?
 
       // Get date as string, for indexing
       var dateString = dateService.dateToString(dateService.getEarlierDate(date, 1));

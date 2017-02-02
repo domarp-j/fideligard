@@ -1,10 +1,10 @@
 FG.controller('TradeCtrl',
 
-  ['$scope', '$stateParams', 'tradeService', 'dateService', 'stocksService',
-   'transactsService',
+  ['$scope', '$stateParams', '$state', 'tradeService', 'dateService',
+   'stocksService', 'transactsService', 'portfolioService',
 
-  function($scope, $stateParams, tradeService, dateService, stocksService,
-           transactsService) {
+  function($scope, $stateParams, $state, tradeService, dateService,
+           stocksService, transactsService, portfolioService) {
 
     // Get trade object from tradeService
     var trade = tradeService.getTrade();
@@ -16,6 +16,10 @@ FG.controller('TradeCtrl',
 
     // Get stock data from stocksService
     var stocks = stocksService.getStockData();
+
+    // Get available cash from portfolioService
+    var cash = portfolioService.getPortfolio().cash;
+    $scope.cash = cash;
 
     // Watch for changes in trade form & act accordingly
     $scope.$watch('trade.changeTracker', function() {
@@ -39,7 +43,6 @@ FG.controller('TradeCtrl',
       ['$stateParams.company', '$stateParams.price', '$stateParams.buySell',
        '$stateParams.quantity'],
       function() {
-        console.log('trade!');
         tradeService.updateTrade(date.changeTracker, {
           company: $stateParams.company,
           price: $stateParams.price,
@@ -64,7 +67,7 @@ FG.controller('TradeCtrl',
           quantity: $scope.formData.quantity,
           price: $scope.formData.price
         })
-
+        $state.go("app.portfolio");
       }
     }
 
