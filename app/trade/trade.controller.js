@@ -34,6 +34,21 @@ FG.controller('TradeCtrl',
       }
     });
 
+    // Populate trade form after 'trade' is selected in stocks index or portfolio
+    $scope.$watchGroup(
+      ['$stateParams.company', '$stateParams.price', '$stateParams.buySell',
+       '$stateParams.quantity'],
+      function() {
+        console.log('trade!');
+        tradeService.updateTrade(date.changeTracker, {
+          company: $stateParams.company,
+          price: $stateParams.price,
+          buySell: $stateParams.buySell,
+          quantity: $stateParams.quantity
+        });
+      }
+    );
+
     // Watch for changes in quanitity and update total cost
     $scope.$watch('formData.quantity', function(newQuantity) {
       $scope.formData.cost = $scope.formData.price * newQuantity;
@@ -49,6 +64,7 @@ FG.controller('TradeCtrl',
           quantity: $scope.formData.quantity,
           price: $scope.formData.price
         })
+
       }
     }
 
