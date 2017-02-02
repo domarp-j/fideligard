@@ -155,9 +155,6 @@ FG.factory('stocksService',
 
     // Get stock data
     var getStockData = function() {
-      if (_.isEmpty(_stockData)) {
-        populateStockDataTemp(); // TODO: temporary
-      }
       return _stockData;
     }
 
