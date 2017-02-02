@@ -4,9 +4,12 @@ FG.controller('StocksCtrl',
 
   function($scope, stocksService, dateService, tradeService, portfolioService) {
 
+    // Get initial date
     var date = dateService.getDate();
     $scope.date = date;
 
+    // Populate stockData in stocksService by communicating with API 
+    // TODO: replace temporary version with API version
     stocksService.populateStockDataTemp()
       .then(function() {
         var allStockData = stocksService.getStockData();
@@ -17,16 +20,6 @@ FG.controller('StocksCtrl',
         });
 
       });
-
-    $scope.populateTradeForm = function($event) {
-      var stockTableRow = angular.element($event.target).parent().parent();
-      var company = stockTableRow.children('.company')[0].innerHTML;
-      var price = stockTableRow.children('.price')[0].innerHTML.substr(1);
-      tradeService.updateTrade(date.changeTracker, {
-        company: company,
-        price: price
-      });
-    }
 
   }
 

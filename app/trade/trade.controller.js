@@ -1,21 +1,28 @@
 FG.controller('TradeCtrl',
 
-  ['$scope', 'tradeService', 'dateService', 'stocksService', 'transactsService',
+  ['$scope', '$stateParams', 'tradeService', 'dateService', 'stocksService',
+   'transactsService',
 
-  function($scope, tradeService, dateService, stocksService, transactsService) {
+  function($scope, $stateParams, tradeService, dateService, stocksService,
+           transactsService) {
 
+    // Get trade object from tradeService
     var trade = tradeService.getTrade();
     $scope.formData = trade;
 
+    // Get date object from dateService
     var date = dateService.getDate();
     $scope.date = date;
 
+    // Get stock data from stocksService
     var stocks = stocksService.getStockData();
 
+    // Watch for changes in trade form & act accordingly
     $scope.$watch('trade.changeTracker', function() {
-      $scope.formData = trade; // TODO: bad to make these equal? angular.copy?
+      $scope.formData = trade;
     });
 
+    // Watch for changes in date & act accordingly
     $scope.$watch('date.changeTracker', function() {
       if ($scope.formData.company !== 'N/A' && $scope.formData.buySell !== 'sell') {
         tradeService.updateTrade(date.changeTracker, {
@@ -27,10 +34,12 @@ FG.controller('TradeCtrl',
       }
     });
 
+    // Watch for changes in quanitity and update total cost
     $scope.$watch('formData.quantity', function(newQuantity) {
       $scope.formData.cost = $scope.formData.price * newQuantity;
     });
 
+    // When a trade form is submitted, add to transactions
     $scope.processTradeRequest = function(formIsValid) {
       if (formIsValid) {
         transactsService.addTransact({
@@ -40,7 +49,7 @@ FG.controller('TradeCtrl',
           quantity: $scope.formData.quantity,
           price: $scope.formData.price
         })
-      } 
+      }
     }
 
   }

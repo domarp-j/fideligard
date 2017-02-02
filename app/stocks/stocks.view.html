@@ -23,8 +23,7 @@
         <td class="one-day">{{ data["1d"] | currency }}</td>
         <td class="seven-day">{{ data["7d"] | currency }}</td>
         <td class="thirty-day">{{ data["30d"]  | currency }}</td>
-        <td><a class="trade-link" ui-sref="app.trade" ng-click="populateTradeForm($event)">Trade</a></td>
-        <!--TODO: pass along and use stateParams?-->
+        <td><a class="trade-link" ui-sref="app.trade({ company:data.company, price:data.price })">Trade</a></td>
       </tr>
     </tbody>
   </table>
