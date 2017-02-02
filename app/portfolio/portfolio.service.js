@@ -31,6 +31,9 @@ FG.factory('portfolioService',
       return _portfolio;
     }
 
+    // Hold onto copy of stockData for updating portfolio
+    var stockData = stocksService.getStockData();
+
     // Populate portfolio with transactions data
     // 'transactions' is an array of objects from transactsService
     // 'date' (Date object) is used to determine which transactions to grab,
@@ -42,9 +45,6 @@ FG.factory('portfolioService',
 
       // Reset portfolio.list
       angular.copy([], _portfolio.list);
-
-      // Get stock data
-      var stockData = stocksService.getStockData(); // TODO: call every time?
 
       // Get date as string, for indexing
       var dateString = dateService.dateToString(dateService.getEarlierDate(date, 1));
