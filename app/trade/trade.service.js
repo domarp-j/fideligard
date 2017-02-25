@@ -16,14 +16,13 @@ FG.factory('tradeService',
     }
 
     // Get trade object
-    var getTrade = function() {
+    var get = function() {
       return _trade;
     }
 
-    // Update form when "trade" is clicked on stocks index
-    // stockTableRow is a jQuery element
+    // Update form when "trade" is clicked on stocks index or portfolio page
     // currentDate is the trade date as a string YYYY-MM-DD
-    var updateTrade = function(currentDate, tradeParams) {
+    var update = function(currentDate, tradeParams) {
       _trade.company = tradeParams["company"] || _trade.company;
       _trade.buySell = tradeParams["buySell"] || _trade.buySell;
       _trade.quantity = tradeParams["quantity"] || 1;
@@ -34,8 +33,8 @@ FG.factory('tradeService',
     }
 
     return {
-      getTrade: getTrade,
-      updateTrade: updateTrade
+      get: get,
+      update: update
     }
 
   }

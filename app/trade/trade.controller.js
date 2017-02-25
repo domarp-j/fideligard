@@ -7,7 +7,7 @@ FG.controller('TradeCtrl',
            stocksService, transactsService, portfolioService) {
 
     // Get trade object from tradeService
-    var trade = tradeService.getTrade();
+    var trade = tradeService.get();
     $scope.formData = trade;
 
     // Get date object from dateService
@@ -43,7 +43,7 @@ FG.controller('TradeCtrl',
     // Watch for changes in date slide & act accordingly
     $scope.$watch('date.changeTracker', function() {
       if ($scope.formData.company !== 'N/A' && $scope.formData.buySell !== 'sell') {
-        tradeService.updateTrade($scope.date.changeTracker, {
+        tradeService.update($scope.date.changeTracker, {
           company: $scope.formData.company,
           buySell: $scope.formData.buySell,
           quantity: $scope.formData.quantity,
@@ -63,7 +63,7 @@ FG.controller('TradeCtrl',
       ['$stateParams.company', '$stateParams.price', '$stateParams.buySell',
        '$stateParams.quantity'],
       function() {
-        tradeService.updateTrade($scope.date.changeTracker, {
+        tradeService.update($scope.date.changeTracker, {
           company: $stateParams.company,
           price: $stateParams.price,
           buySell: $stateParams.buySell,
