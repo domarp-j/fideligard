@@ -25,7 +25,7 @@ FG.factory('transactsService',
 
     // Add a transaction (from trade form)
     var addTransact = function(transactParams) {
-      _transacts.list.push(angular.copy(transactParams)); 
+      _transacts.list.push(angular.copy(transactParams));
       _transacts.changeTracker++;
     }
 

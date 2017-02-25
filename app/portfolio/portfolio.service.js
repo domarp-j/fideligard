@@ -35,13 +35,12 @@ FG.factory('portfolioService',
     var stockData = stocksService.getStockData();
 
     // Populate portfolio with transactions data
-    // 'transactions' is an array of objects from transactsService
-    // 'date' (Date object) is used to determine which transactions to grab,
-    //   since we only want transactions from the past
+    // transactions is an array of objects from transactsService
+    // date (Date object) is used to determine past transactions to grab
     var updatePortfolio = function(date, transactions) {
 
       // Do nothing if transactions list is empty
-      if (transactions.length === 0) return;
+      if (!transactions.length) return;
 
       // Reset portfolio.list
       angular.copy([], _portfolio.list);
@@ -55,31 +54,47 @@ FG.factory('portfolioService',
         // Only account for dates earlier than the current date
         if (transactions[i].date > date) continue;
 
-        // Some useful parameters, stored as variables
-        var symbol = transactions[i].company;
-        var quantity = transactions[i].quantity;
-        var costBasis = transactions[i].price * quantity;
-        var currentPrice = stockData[dateString][symbol]["price"];
-        var currentValue = currentPrice * quantity;
-        var profitLoss = currentValue - costBasis;
-        var oneDay = stockData[dateString][symbol]["1d"];
-        var sevenDay = stockData[dateString][symbol]["7d"];
-        var thirtyDay = stockData[dateString][symbol]["30d"];
-
-        // Populate list
-        _portfolio.list.push({
-          "symbol": symbol,
-          "quantity": quantity,
-          "costBasis": costBasis,
-          "currentValue": currentValue,
-          "profitLoss": profitLoss,
-          "currentPrice": currentPrice,
-          "1d": oneDay,
-          "7d": sevenDay,
-          "30d": thirtyDay
-        })
+        // Handling 'buy' transactions
+        if (transactions[i].buySell === 'buy') {
+          _buyStock(stockData, transactions[i]);
+        } else { // Handling 'sell' transactions
+          // _sellStock(stockParams);
+        }
 
       }
+
+    }
+
+    // Update portolio with 'buy' transacts
+    var _buyStock = function(stockData, transact) {
+
+      symbol = transact.company,
+      quantity = transact.quantity
+      costBasis = transact.price * quantity;
+      currentPrice = stockData[dateString][symbol]["price"];
+      currentValue = currentPrice * quantity;
+      profitLoss = currentValue - costBasis;
+      oneDay = stockData[dateString][symbol]["1d"];
+      sevenDay = stockData[dateString][symbol]["7d"];
+      thirtyDay = stockData[dateString][symbol]["30d"];
+
+      // Populate portfolio list
+      _portfolio.list.push({
+        "symbol": symbol,
+        "quantity": quantity,
+        "costBasis": costBasis,
+        "currentValue": currentValue,
+        "profitLoss": profitLoss,
+        "currentPrice": currentPrice,
+        "1d": oneDay,
+        "7d": sevenDay,
+        "30d": thirtyDay
+      })
+
+    }
+
+    // Update portfoio with 'sell' transacts'
+    var _sellStock = function(stockParams) {
 
     }
 
