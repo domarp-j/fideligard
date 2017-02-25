@@ -88,7 +88,7 @@ FG.factory('stocksService',
       var queryStartDate = dateService.daysFrom(date.startDate, -30);
       var queryEndDate = date.endDate;
 
-      apiService.callAPI(
+      apiService.call(
         _companies,
         dateService.toString(queryStartDate),
         dateService.toString(queryEndDate)

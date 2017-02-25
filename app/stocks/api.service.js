@@ -6,7 +6,7 @@ FG.factory('apiService',
 
     // Send API request to get stock data from Yahoo API
     // Returns the raw data from the API call
-    var callAPI = function(companies, startDate, endDate) {
+    var call = function(companies, startDate, endDate) {
       return $http.get(_buildQueryUrl(companies, startDate, endDate))
         .then(function(response) {
           return response.data;
@@ -31,7 +31,7 @@ FG.factory('apiService',
     }
 
     return {
-      callAPI: callAPI
+      call: call
     }
 
   }
