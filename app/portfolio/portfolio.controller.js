@@ -8,15 +8,15 @@ FG.controller('PortfolioCtrl',
     $scope.date = dateService.get();
 
     // Get portfolio items array
-    $scope.portfolioItems = portfolioService.getPortfolio().list;
+    $scope.portfolioItems = portfolioService.get().list;
 
     // Watch for changes in date & act accordingly
     $scope.$watch('date.changeTracker', function() {
-      portfolioService.updatePortfolio(
+      portfolioService.update(
         $scope.date.current,
         transactsService.get().list
       );
-      $scope.portfolioItems = portfolioService.getPortfolio().list;
+      $scope.portfolioItems = portfolioService.get().list;
     });
 
   }

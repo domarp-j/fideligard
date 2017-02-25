@@ -17,7 +17,7 @@ FG.controller('TradeCtrl',
     var stocks = stocksService.get();
 
     // Get available cash from portfolioService
-    var cash = portfolioService.getPortfolio().cash;
+    var cash = portfolioService.get().cash;
     $scope.cash = cash;
 
     // Check if trade is valid

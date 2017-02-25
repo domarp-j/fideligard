@@ -8,38 +8,22 @@ FG.factory('portfolioService',
     // It should always be loaded last in index.html
 
     // Collect all portfolio items
-    // Each object in portfolio.list has the following scheme:
-    // {
-    //   symbol: string,
-    //   quantity: integer,
-    //   costBasis: float,
-    //   currentValue: float
-    //   profitLoss: float,
-    //   currentPrice: float
-    //   1d: float,
-    //   7d: float,
-    //   30d: float
-    // }
     var _portfolio = {
       cash: 1000,
       list: [],
       changeTracker: 0
     }
 
-    // Get portfolio
-    var getPortfolio = function() {
-      return _portfolio;
-    }
-
     // Hold onto copy of stockData for updating portfolio
     var stockData = stocksService.get();
 
-    // Populate portfolio with transactions data
-    // transactions is an array of objects from transactsService
-    // date (Date object) is used to determine past transactions to grab
-    var updatePortfolio = function(date, transactions) {
+    // Get portfolio
+    var get = function() {
+      return _portfolio;
+    }
 
-      // Do nothing if transactions list is empty
+    // Populate portfolio with transactions data
+    var update = function(date, transactions) {
       if (!transactions.length) return;
 
       // Reset portfolio.list
@@ -48,16 +32,14 @@ FG.factory('portfolioService',
       // Get date as string, for indexing
       var date = dateService.toString(dateService.daysFrom(date, -1));
 
-      // Populate portfolio with above data
       for (var i = 0; i < transactions.length; i++) {
 
         // Only account for dates earlier than the current date
         if (transactions[i].date > date) continue;
 
-        // Handling 'buy' transactions
         if (transactions[i].buySell === 'buy') {
           _buyStock(stockData, date, transactions[i]);
-        } else { // Handling 'sell' transactions
+        } else {
           // _sellStock(stockParams);
         }
 
@@ -78,7 +60,6 @@ FG.factory('portfolioService',
       sevenDay = stockData[date][symbol]["7d"];
       thirtyDay = stockData[date][symbol]["30d"];
 
-      // Populate portfolio list
       _portfolio.list.push({
         "symbol": symbol,
         "quantity": quantity,
@@ -111,8 +92,8 @@ FG.factory('portfolioService',
     }
 
     return {
-      getPortfolio: getPortfolio,
-      updatePortfolio: updatePortfolio,
+      get: get,
+      update: update,
       checkSell: checkSell
     }
 
