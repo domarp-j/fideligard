@@ -84,7 +84,7 @@ FG.controller('TradeCtrl',
 
       if ($scope.validTrade() && formIsValid) {
 
-        transactsService.addTransact({
+        transactsService.add({
           date: $scope.formData.date,
           company: $scope.formData.company,
           buySell: $scope.formData.buySell,

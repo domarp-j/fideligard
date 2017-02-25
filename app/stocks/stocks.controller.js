@@ -4,13 +4,14 @@ FG.controller('StocksCtrl',
 
   function($scope, stocksService, dateService, tradeService, portfolioService) {
 
-    // Get date object
+    // Get date 
     $scope.date = dateService.get();
 
-    // Get stock data object
+    // Get entire stock data
     var stockData = stocksService.get();
 
-    // Watch for changes in date & modify stock index as necessary
+    // Watch for changes in date
+    // For given date, get specific stock data
     $scope.$watch('date.changeTracker', function() {
       $scope.currentData = stocksService.arrayifyData(stockData[$scope.date.changeTracker]);
     });

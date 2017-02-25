@@ -8,12 +8,11 @@ FG.controller('TransactsCtrl',
     // TODO: add filter & sorting
 
     // Get transacts object
-    var transacts = transactsService.getTransacts();
-    $scope.transactions = transacts.list;
+    $scope.transactions = transactsService.get().list;
 
     // Watch for changes in transacts object & update transacts object
     $scope.$watch('transacts.changeTracker', function() {
-      $scope.transactions = transacts.list;
+      $scope.transactions = transactsService.get().list;
     });
 
   }

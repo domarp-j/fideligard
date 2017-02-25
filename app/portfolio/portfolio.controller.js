@@ -14,7 +14,7 @@ FG.controller('PortfolioCtrl',
     $scope.$watch('date.changeTracker', function() {
       portfolioService.updatePortfolio(
         $scope.date.current,
-        transactsService.getTransacts().list
+        transactsService.get().list
       );
       $scope.portfolioItems = portfolioService.getPortfolio().list;
     });
