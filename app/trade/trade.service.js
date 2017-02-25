@@ -9,7 +9,7 @@ FG.factory('tradeService',
       company: "N/A",
       buySell: "buy",
       quantity: 1,
-      date: dateService.getDate(),
+      date: dateService.get(),
       price: 0,
       cost: 0,
       changeTracker: "N/A"

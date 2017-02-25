@@ -23,17 +23,29 @@ FG.factory('dateService',
     }
     _fixDateOffset();
 
+    // Get date object when needed
+    var get = function() {
+      return _date;
+    }
+
     // Given date object, return date as string in format YYYY-MM-DD
     var toString = function(date) {
       return date.toISOString().slice(0,10);
     }
 
+    // Get the difference in days between two dates
+    // Note that there are 86400000 milliseconds in a day
+    var daysBetween = function(dateA, dateB) {
+      var millisecsBetween = (dateB - dateA);
+      return millisecsBetween / 86400000;
+    }
+
     // Get the date x days from now
     // Note: x can be negative!
     var daysFrom = function(date, x) {
-      var earlierDate = angular.copy(date);
-      earlierDate.setDate(earlierDate.getDate() + x);
-      return earlierDate;
+      var newDate = angular.copy(date);
+      newDate.setDate(newDate.getDate() + x);
+      return newDate;
     }
 
     // Get a collection of dates as an array
@@ -48,18 +60,6 @@ FG.factory('dateService',
       return dateCollection;
     }
     var _dateCollection = _populateDateCollection();
-
-    // Get date object when needed
-    var getDate = function() {
-      return _date;
-    }
-
-    // Get the difference in days between _startDate and _getDate
-    // Note that there are 86400000 milliseconds in a day
-    var daysBetween = function(dateA, dateB) {
-      var millisecsBetween = (dateB - dateA);
-      return millisecsBetween / 86400000;
-    }
 
     // Given dayValue from the date widget, set currentDate
     var setCurrentDate = function(dayIndex) {
@@ -79,11 +79,11 @@ FG.factory('dateService',
     }
 
     return {
-      getDate: getDate,
+      get: get,
       toString: toString,
       daysBetween: daysBetween,
-      setCurrentDate: setCurrentDate,
       daysFrom: daysFrom,
+      setCurrentDate: setCurrentDate,
       checkDate: checkDate
     }
 

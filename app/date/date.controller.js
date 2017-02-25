@@ -4,7 +4,7 @@ FG.controller('DateCtrl',
 
   function($scope, dateService) {
 
-    var date = dateService.getDate();
+    var date = dateService.get();
 
     // Get the start and end dates for the stock simulator
     $scope.startDate = date.start;

@@ -11,7 +11,7 @@ FG.controller('TradeCtrl',
     $scope.formData = trade;
 
     // Get date object from dateService
-    $scope.date = dateService.getDate();
+    $scope.date = dateService.get();
 
     // Get stock data from stocksService
     var stocks = stocksService.getStockData();

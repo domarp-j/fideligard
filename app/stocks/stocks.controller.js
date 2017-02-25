@@ -5,7 +5,7 @@ FG.controller('StocksCtrl',
   function($scope, stocksService, dateService, tradeService, portfolioService) {
 
     // Get ate object
-    var date = dateService.getDate();
+    var date = dateService.get();
     $scope.date = date;
 
     // Get stock data object

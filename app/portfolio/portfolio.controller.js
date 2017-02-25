@@ -5,7 +5,7 @@ FG.controller('PortfolioCtrl',
   function($scope, portfolioService, dateService, transactsService) {
 
     // Get date object
-    $scope.date = dateService.getDate();
+    $scope.date = dateService.get();
 
     // Get portfolio items array
     $scope.portfolioItems = portfolioService.getPortfolio().list;
