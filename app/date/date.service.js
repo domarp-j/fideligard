@@ -28,10 +28,11 @@ FG.factory('dateService',
       return date.toISOString().slice(0,10);
     }
 
-    // Get the date from (daysBefore) days ago
-    var getEarlierDate = function(date, daysBefore) {
+    // Get the date x days from now
+    // Note: x can be negative!
+    var daysFrom = function(date, x) {
       var earlierDate = angular.copy(date);
-      earlierDate.setDate(earlierDate.getDate() - daysBefore);
+      earlierDate.setDate(earlierDate.getDate() + x);
       return earlierDate;
     }
 
@@ -40,9 +41,9 @@ FG.factory('dateService',
     var _populateDateCollection = function() {
       var dateCollection = [];
       var begin = angular.copy(_date.start);
-      var end = getEarlierDate(angular.copy(_date.end), -1); // TODO: cheap fix
+      var end = daysFrom(angular.copy(_date.end), 1);
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
-        dateCollection.push(toString(getEarlierDate(d,1)));
+        dateCollection.push(toString(daysFrom(d, -1)));
       }
       return dateCollection;
     }
@@ -82,7 +83,7 @@ FG.factory('dateService',
       toString: toString,
       daysBetween: daysBetween,
       setCurrentDate: setCurrentDate,
-      getEarlierDate: getEarlierDate,
+      daysFrom: daysFrom,
       checkDate: checkDate
     }
 

@@ -27,7 +27,7 @@ FG.factory('tradeService',
       _trade.company = tradeParams["company"] || _trade.company;
       _trade.buySell = tradeParams["buySell"] || _trade.buySell;
       _trade.quantity = tradeParams["quantity"] || 1;
-      _trade.date = dateService.getEarlierDate(new Date(Date.parse(currentDate)), -1); // TODO: cheap fix
+      _trade.date = dateService.daysFrom(new Date(Date.parse(currentDate)), 1);
       _trade.price = tradeParams["price"] || _trade.price;
       _trade.cost = _trade.quantity * parseFloat(_trade.price);
       _trade.changeTracker = _trade.company + '-' + _trade.date;

@@ -46,7 +46,7 @@ FG.factory('portfolioService',
       angular.copy([], _portfolio.list);
 
       // Get date as string, for indexing
-      var date = dateService.toString(dateService.getEarlierDate(date, 1));
+      var date = dateService.toString(dateService.daysFrom(date, -1));
 
       // Populate portfolio with above data
       for (var i = 0; i < transactions.length; i++) {

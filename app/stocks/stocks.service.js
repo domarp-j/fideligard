@@ -61,11 +61,11 @@ FG.factory('stocksService',
     // This method should only be called after cleanData is called!
     var _fillInGaps = function() {
       // Iterate from begin to end (both Date objects)
-      var begin = dateService.getEarlierDate(dateService.getDate().start, 30);
+      var begin = dateService.daysFrom(dateService.getDate().start, -30);
       var end = angular.copy(dateService.getDate().end);
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
         var date = dateService.toString(d);
-        var dayBefore = dateService.toString(dateService.getEarlierDate(d, 1));
+        var dayBefore = dateService.toString(dateService.daysFrom(d, -1));
         // Add any missing dates
         if (!_stockData[date]) {
           _stockData[date] = {};
@@ -98,13 +98,13 @@ FG.factory('stocksService',
         // Convert date from YYYY-MM-DD to Date object
         var dateAsObj = new Date(Date.parse(date));
         // Continue if date is part of thirty days before startDate
-        if (dateAsObj < dateService.getEarlierDate(dateService.getDate().start, 1)) {
+        if (dateAsObj < dateService.daysFrom(dateService.getDate().start, -1)) {
           continue;
         }
         // Get past dates as Date objects
-        var oneDayBefore = dateService.getEarlierDate(dateAsObj, 1);
-        var sevenDaysBefore = dateService.getEarlierDate(dateAsObj, 7);
-        var thirtyDaysBefore = dateService.getEarlierDate(dateAsObj, 30);
+        var oneDayBefore = dateService.daysFrom(dateAsObj, -1);
+        var sevenDaysBefore = dateService.daysFrom(dateAsObj, -7);
+        var thirtyDaysBefore = dateService.daysFrom(dateAsObj, -30);
         // Convert dates into dash format
         oneDayBefore = dateService.toString(oneDayBefore);
         sevenDaysBefore = dateService.toString(sevenDaysBefore);
@@ -127,7 +127,7 @@ FG.factory('stocksService',
     // That way, we can get historical data from 30 days ago for the very
     //   first day
     var populateStockData = function() {
-      var queryStartDate = dateService.getEarlierDate(date.startDate, 30);
+      var queryStartDate = dateService.daysFrom(date.startDate, -30);
       var queryEndDate = date.endDate;
 
       apiService.callAPI(
