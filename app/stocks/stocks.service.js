@@ -61,8 +61,8 @@ FG.factory('stocksService',
     // This method should only be called after cleanData is called!
     var _fillInGaps = function() {
       // Iterate from begin to end (both Date objects)
-      var begin = dateService.getEarlierDate(dateService.getDate().startDate, 30);
-      var end = angular.copy(dateService.getDate().endDate);
+      var begin = dateService.getEarlierDate(dateService.getDate().start, 30);
+      var end = angular.copy(dateService.getDate().end);
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
         var date = dateService.dateToString(d);
         var dayBefore = dateService.dateToString(dateService.getEarlierDate(d, 1));
@@ -98,7 +98,7 @@ FG.factory('stocksService',
         // Convert date from YYYY-MM-DD to Date object
         var dateAsObj = new Date(Date.parse(date));
         // Continue if date is part of thirty days before startDate
-        if (dateAsObj < dateService.getEarlierDate(dateService.getDate().startDate, 1)) {
+        if (dateAsObj < dateService.getEarlierDate(dateService.getDate().start, 1)) {
           continue;
         }
         // Get past dates as Date objects

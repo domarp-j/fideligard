@@ -6,21 +6,21 @@ FG.controller('DateCtrl',
 
     var date = dateService.getDate();
 
-    // Get clean, presentable versions of startDate and endDate
-    // startDate and endDate are in dateService
-    $scope.startDate = date.startDate;
-    $scope.endDate = date.endDate;
+    // Get the start and end dates for the stock simulator
+    $scope.startDate = date.start;
+    $scope.endDate = date.end;
 
-    // Get days between startDate and endDate
+    // Get days between the above start and end dates
     $scope.daysBetween = dateService.daysBetween(
-      date.startDate,
-      date.endDate
+      date.start,
+      date.end
     );
 
-    // Get date from dayVal (set in view)
+    // Watch the date slider integer value (dayVal)
+    // Based on the date slider, set the current date
     $scope.$watch('dayVal', function() {
       dateService.setCurrentDate($scope.dayVal);
-      $scope.currentDate = date.currentDate;
+      $scope.currentDate = date.current;
     });
 
   }
