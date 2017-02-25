@@ -75,12 +75,9 @@ FG.factory('stocksService',
 
         // Add historical data to each entry in _stockData
         for (var company in _stockData[date]) {
-          _stockData[date][company]["1d"] =
-            _stockData[date][company]["price"] - _stockData[oneDayBefore][company]["price"];
-          _stockData[date][company]["7d"] =
-            _stockData[date][company]["price"] - _stockData[sevenDaysBefore][company]["price"];
-          _stockData[date][company]["30d"] =
-            _stockData[date][company]["price"] - _stockData[thirtyDaysBefore][company]["price"];
+          _stockData[date][company]["1d"] = _stockData[date][company]["price"] - _stockData[oneDayBefore][company]["price"];
+          _stockData[date][company]["7d"] = _stockData[date][company]["price"] - _stockData[sevenDaysBefore][company]["price"];
+          _stockData[date][company]["30d"] = _stockData[date][company]["price"] - _stockData[thirtyDaysBefore][company]["price"];
         }
       }
     }
