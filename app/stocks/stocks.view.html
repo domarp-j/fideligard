@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="data in stockData | orderBy:'company' | filter:symbol">
+      <tr ng-repeat="data in currentData | orderBy:'company' | filter:symbol">
         <!--TODO: add clickable sort-->
         <td class="company">{{ data.company }}</td>
         <td class="price">{{ data.price | currency }}</td>

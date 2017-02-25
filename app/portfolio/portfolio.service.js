@@ -32,7 +32,7 @@ FG.factory('portfolioService',
     }
 
     // Hold onto copy of stockData for updating portfolio
-    var stockData = stocksService.getStockData();
+    var stockData = stocksService.get();
 
     // Populate portfolio with transactions data
     // transactions is an array of objects from transactsService

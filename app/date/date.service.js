@@ -8,6 +8,8 @@ FG.factory('dateService',
     // It should always be loaded first in index.html
 
     // Set date object
+    // IMPORTANT: _date.start should be THIRTY DAYS AFTER the actual starting
+    // date for the simulator! 
     var _date = {
       start: new Date('2016-10-01'),
       end: new Date('2016-12-31'),

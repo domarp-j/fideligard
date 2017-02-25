@@ -14,7 +14,7 @@ FG.controller('TradeCtrl',
     $scope.date = dateService.get();
 
     // Get stock data from stocksService
-    var stocks = stocksService.getStockData();
+    var stocks = stocksService.get();
 
     // Get available cash from portfolioService
     var cash = portfolioService.getPortfolio().cash;
