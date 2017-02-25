@@ -19,7 +19,7 @@ FG.controller('DateCtrl',
     // Watch the date slider integer value (dayVal)
     // Based on the date slider, set the current date
     $scope.$watch('dayVal', function() {
-      dateService.setCurrentDate($scope.dayVal);
+      dateService.setCurrent($scope.dayVal);
       $scope.currentDate = date.current;
     });
 

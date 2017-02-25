@@ -61,8 +61,8 @@ FG.factory('dateService',
     }
     var _dateCollection = _populateDateCollection();
 
-    // Given dayValue from the date widget, set currentDate
-    var setCurrentDate = function(dayIndex) {
+    // Given dayIndex from the date widget, set _date.current
+    var setCurrent = function(dayIndex) {
       dayIndex = dayIndex || 0; // in case dayIndex is undefined
       var newDate = new Date(Date.parse(_dateCollection[dayIndex]));
       // Don't overwrite _date.current! Assign new values!
@@ -83,7 +83,7 @@ FG.factory('dateService',
       toString: toString,
       daysBetween: daysBetween,
       daysFrom: daysFrom,
-      setCurrentDate: setCurrentDate,
+      setCurrent: setCurrent,
       checkDate: checkDate
     }
 
