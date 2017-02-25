@@ -30,6 +30,7 @@
       <tr>
         <th>Symbol</th>
         <th>Quantity</th>
+        <th>Purchase Date</th>
         <th>Cost Basis</th>
         <th>Current Value</th>
         <th>Profit/Loss</th>
@@ -44,6 +45,7 @@
       <tr ng-repeat="item in portfolioItems">
         <td>{{ item.symbol }}</td>
         <td>{{ item.quantity }}</td>
+        <td>{{ item.purchaseDate | date : 'shortDate' }}</td>
         <td>{{ item.costBasis | currency }}</td>
         <td>{{ item.currentValue | currency }}</td>
         <td>{{ item.profitLoss | currency }}</td>

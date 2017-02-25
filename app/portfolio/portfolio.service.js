@@ -46,7 +46,7 @@ FG.factory('portfolioService',
       angular.copy([], _portfolio.list);
 
       // Get date as string, for indexing
-      var dateString = dateService.dateToString(dateService.getEarlierDate(date, 1));
+      var date = dateService.dateToString(dateService.getEarlierDate(date, 1));
 
       // Populate portfolio with above data
       for (var i = 0; i < transactions.length; i++) {
@@ -56,7 +56,7 @@ FG.factory('portfolioService',
 
         // Handling 'buy' transactions
         if (transactions[i].buySell === 'buy') {
-          _buyStock(stockData, transactions[i]);
+          _buyStock(stockData, date, transactions[i]);
         } else { // Handling 'sell' transactions
           // _sellStock(stockParams);
         }
@@ -66,22 +66,24 @@ FG.factory('portfolioService',
     }
 
     // Update portolio with 'buy' transacts
-    var _buyStock = function(stockData, transact) {
+    var _buyStock = function(stockData, date, transact) {
 
-      symbol = transact.company,
-      quantity = transact.quantity
+      symbol = transact.company;
+      quantity = transact.quantity;
+      purchaseDate = transact.date;
       costBasis = transact.price * quantity;
-      currentPrice = stockData[dateString][symbol]["price"];
+      currentPrice = stockData[date][symbol]["price"];
       currentValue = currentPrice * quantity;
       profitLoss = currentValue - costBasis;
-      oneDay = stockData[dateString][symbol]["1d"];
-      sevenDay = stockData[dateString][symbol]["7d"];
-      thirtyDay = stockData[dateString][symbol]["30d"];
+      oneDay = stockData[date][symbol]["1d"];
+      sevenDay = stockData[date][symbol]["7d"];
+      thirtyDay = stockData[date][symbol]["30d"];
 
       // Populate portfolio list
       _portfolio.list.push({
         "symbol": symbol,
         "quantity": quantity,
+        "purchaseDate": purchaseDate,
         "costBasis": costBasis,
         "currentValue": currentValue,
         "profitLoss": profitLoss,
@@ -94,9 +96,9 @@ FG.factory('portfolioService',
     }
 
     // Update portfoio with 'sell' transacts'
-    var _sellStock = function(stockParams) {
-
-    }
+    // var _sellStock = function(stockParams) {
+    //
+    // }
 
     // Check if a sale is possible based on portfolio data
     var checkSell = function(company, quantity) {
