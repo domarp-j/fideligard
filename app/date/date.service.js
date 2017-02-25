@@ -24,7 +24,7 @@ FG.factory('dateService',
     _fixDateOffset();
 
     // Given date object, return date as string in format YYYY-MM-DD
-    var dateToString = function(date) {
+    var toString = function(date) {
       return date.toISOString().slice(0,10);
     }
 
@@ -42,7 +42,7 @@ FG.factory('dateService',
       var begin = angular.copy(_date.start);
       var end = getEarlierDate(angular.copy(_date.end), -1); // TODO: cheap fix
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
-        dateCollection.push(dateToString(getEarlierDate(d,1)));
+        dateCollection.push(toString(getEarlierDate(d,1)));
       }
       return dateCollection;
     }
@@ -79,7 +79,7 @@ FG.factory('dateService',
 
     return {
       getDate: getDate,
-      dateToString: dateToString,
+      toString: toString,
       daysBetween: daysBetween,
       setCurrentDate: setCurrentDate,
       getEarlierDate: getEarlierDate,

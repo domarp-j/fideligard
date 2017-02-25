@@ -64,8 +64,8 @@ FG.factory('stocksService',
       var begin = dateService.getEarlierDate(dateService.getDate().start, 30);
       var end = angular.copy(dateService.getDate().end);
       for (var d = begin; d <= end; d.setDate(d.getDate() + 1)) {
-        var date = dateService.dateToString(d);
-        var dayBefore = dateService.dateToString(dateService.getEarlierDate(d, 1));
+        var date = dateService.toString(d);
+        var dayBefore = dateService.toString(dateService.getEarlierDate(d, 1));
         // Add any missing dates
         if (!_stockData[date]) {
           _stockData[date] = {};
@@ -106,9 +106,9 @@ FG.factory('stocksService',
         var sevenDaysBefore = dateService.getEarlierDate(dateAsObj, 7);
         var thirtyDaysBefore = dateService.getEarlierDate(dateAsObj, 30);
         // Convert dates into dash format
-        oneDayBefore = dateService.dateToString(oneDayBefore);
-        sevenDaysBefore = dateService.dateToString(sevenDaysBefore);
-        thirtyDaysBefore = dateService.dateToString(thirtyDaysBefore);
+        oneDayBefore = dateService.toString(oneDayBefore);
+        sevenDaysBefore = dateService.toString(sevenDaysBefore);
+        thirtyDaysBefore = dateService.toString(thirtyDaysBefore);
         // Finally, populate companies in _stockData with 1d, 7d, 30d
         for (var company in _stockData[date]) {
           _stockData[date][company]["1d"] =
@@ -132,8 +132,8 @@ FG.factory('stocksService',
 
       apiService.callAPI(
         _companies,
-        dateService.dateToString(queryStartDate),
-        dateService.dateToString(queryEndDate)
+        dateService.toString(queryStartDate),
+        dateService.toString(queryEndDate)
       ).then(function(data) {
          angular.copy(_cleanData(data.query.results.quote), _stockData);
          _fillInGaps();
