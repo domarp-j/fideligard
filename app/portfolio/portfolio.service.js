@@ -70,7 +70,6 @@ FG.factory('portfolioService',
 
       symbol = transact.company;
       quantity = transact.quantity;
-      purchaseDate = transact.date;
       costBasis = transact.price * quantity;
       currentPrice = stockData[date][symbol]["price"];
       currentValue = currentPrice * quantity;
@@ -83,7 +82,6 @@ FG.factory('portfolioService',
       _portfolio.list.push({
         "symbol": symbol,
         "quantity": quantity,
-        "purchaseDate": purchaseDate,
         "costBasis": costBasis,
         "currentValue": currentValue,
         "profitLoss": profitLoss,
