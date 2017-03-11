@@ -56,17 +56,17 @@ FG.factory('stocksService',
     var _addHistoricalData = function() {
       for (var date in _stockData) {
         // Convert date from YYYY-MM-DD strings to the actual Date object
-        var date = new Date(Date.parse(date));
+        var dateObj = new Date(Date.parse(date));
 
         // Skip the first thirty days, since they won't have historical data
-        if (date < dateService.daysFrom(dateService.get().start, -1)) {
+        if (dateObj < dateService.daysFrom(dateService.get().start, -1)) {
           continue;
         }
 
         // Get the required earlier dates (as Date objects)
-        var oneDayBefore = dateService.daysFrom(date, -1);
-        var sevenDaysBefore = dateService.daysFrom(date, -7);
-        var thirtyDaysBefore = dateService.daysFrom(date, -30);
+        var oneDayBefore = dateService.daysFrom(dateObj, -1);
+        var sevenDaysBefore = dateService.daysFrom(dateObj, -7);
+        var thirtyDaysBefore = dateService.daysFrom(dateObj, -30);
 
         // Convert these dates from Date objects to YYYY-MM-DD strings
         oneDayBefore = dateService.toString(oneDayBefore);
@@ -78,6 +78,10 @@ FG.factory('stocksService',
           _stockData[date][company]["1d"] = _stockData[date][company]["price"] - _stockData[oneDayBefore][company]["price"];
           _stockData[date][company]["7d"] = _stockData[date][company]["price"] - _stockData[sevenDaysBefore][company]["price"];
           _stockData[date][company]["30d"] = _stockData[date][company]["price"] - _stockData[thirtyDaysBefore][company]["price"];
+
+          // console.log(_stockData[date][company]["1d"]);
+          // console.log(_stockData[date][company]["7d"]);
+          // console.log(_stockData[date][company]["30d"]);
         }
       }
     }
